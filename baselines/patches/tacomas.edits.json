@@ -1,0 +1,133 @@
+{
+  "schema": "forward-line-edits/1",
+  "upstream_commit": "6f0d545f2493cf95d2eb6a325d1a6686acf658eb",
+  "files": [
+    {
+      "path": "scripts/run_evolution.py",
+      "before_sha256": "5d68bedcf0d7693848dbb701c26c29ee9557cb7e32d4f5d10bcd2f85ec6fdb90",
+      "after_sha256": "eb5d670ae00b9632b0ff97c6757d0b4e7cdee4c4b2891cce6e6ccd778e994d64",
+      "edits": [
+        {
+          "start": 175,
+          "end": 175,
+          "replacement": "        },\n        \"workbench-official\": {\n            \"local_path\": \"datasets/workbench_official.json\",\n            \"templates_local_path\": \"prompts/dataset-shared/workbench_role_aware.yaml\",\n            \"env_name\": \"workbench-official\",\n            \"tools\": [],\n"
+        },
+        {
+          "start": 503,
+          "end": 504,
+          "replacement": "        if did in {\"workbench\", \"workbench-official\"}:\n"
+        },
+        {
+          "start": 696,
+          "end": 698,
+          "replacement": "    final_agent_api_key = (\n        agent_api_key\n        or os.getenv(\"TACOMAS_AGENT_API_KEY\", \"\").strip()\n        or _default_api_key_for_model(agent_model)\n    )\n    final_meta_api_key = (\n        meta_api_key\n        or os.getenv(\"TACOMAS_META_API_KEY\", \"\").strip()\n        or _default_api_key_for_model(meta_model)\n    )\n"
+        },
+        {
+          "start": 721,
+          "end": 722,
+          "replacement": "    if dataset_id == \"workbench-official\":\n        from tacomas.env.workbench import PUBLIC_TOOL_NAMES, role_permissions\n"
+        },
+        {
+          "start": 723,
+          "end": 724,
+          "replacement": "        dataset_tools = list(PUBLIC_TOOL_NAMES)\n        runtime_role_permissions = role_permissions()\n    else:\n        runtime_role_permissions = _derive_role_permissions_for_tools(dataset_tools)\n\n    if dataset_id in {\"workbench\", \"workbench-official\"}:\n"
+        },
+        {
+          "start": 734,
+          "end": 734,
+          "replacement": "    agent_prompts = {\n        \"base_agent\": {\"local_path\": \"prompts/multi-agent/independent_worker.yaml\"},\n        \"aggregator\": {\"local_path\": \"prompts/multi-agent/independent_worker.yaml\"},\n    }\n    if agent_name == \"tacomas\":\n        # The released driver wires only the generic baseline prompts, while\n        # TacoMASSystem requires the role templates already shipped in\n        # prompts/tacomas/. Wiring those files closes the release integration\n        # gap without changing any prompt text or algorithmic behavior.\n        role_files = [\n            \"lead_agent\", \"planner\", \"searcher\", \"calculator\", \"verifier\",\n            \"summary\", \"reflector\", \"planner_alt\", \"searcher_alt\",\n            \"calculator_alt\", \"verifier_alt\", \"reflector_alt\",\n        ]\n        agent_prompts = {\n            name: {\"local_path\": f\"prompts/tacomas/{name}.yaml\"}\n            for name in role_files\n        }\n        agent_prompts[\"subagent\"] = {\"local_path\": \"prompts/tacomas/searcher.yaml\"}\n\n"
+        },
+        {
+          "start": 737,
+          "end": 741,
+          "replacement": "            \"prompts\": agent_prompts,\n"
+        },
+        {
+          "start": 795,
+          "end": 796,
+          "replacement": "    output_root = Path(os.environ.get(\"TACOMAS_OUTPUT_ROOT\", \"outputs\"))\n"
+        },
+        {
+          "start": 803,
+          "end": 803,
+          "replacement": "    if os.environ.get(\"TACOMAS_USAGE_LEDGER\", \"1\") == \"1\":\n        from paired_accounting import install_usage_ledger\n        install_usage_ledger(output_dir / \"live_calls.jsonl\")\n"
+        },
+        {
+          "start": 846,
+          "end": 846,
+          "replacement": "        os.environ[\"TACOMAS_INSTANCE_IDX\"] = str(instance_idx)\n"
+        }
+      ]
+    },
+    {
+      "path": "tacomas/config/llm.py",
+      "before_sha256": "bb7e2fea4d2d74c7c6f3a218cb99f3dd7587ba50faef1879ab76d0176cec7332",
+      "after_sha256": "49f0d4fc60d40de65c5da0c1041037c2b199317653840942bfc1a177d323ff09",
+      "edits": [
+        {
+          "start": 69,
+          "end": 74,
+          "replacement": "        # Do not set LiteLLM module globals here. TacoMAS intentionally uses\n        # separate models for workers, the meta-controller, and judges. A\n        # process-global api_base makes the most recently constructed role\n        # silently route every other role through the wrong Azure endpoint.\n        # The per-client kwargs above are the complete request determinants.\n"
+        }
+      ]
+    },
+    {
+      "path": "tacomas/datasets/__init__.py",
+      "before_sha256": "d29adf6167da5d7ac541137cffcae8a6f0b75b1e74e30e3929643a4b82cf3d0c",
+      "after_sha256": "c940ea2bbd6d35c2406040de7fc147c86316e0870274fa96b45ebd4224581846",
+      "edits": [
+        {
+          "start": 19,
+          "end": 19,
+          "replacement": "from .workbench_official import (  # noqa: F401\n    WorkBenchOfficialDataset,\n    WorkBenchOfficialInstance,\n)\n"
+        }
+      ]
+    },
+    {
+      "path": "tacomas/env/__init__.py",
+      "before_sha256": "96da0465ab98ce7cf56c0a44529d57ee24d175a2c1bed328861541d3915f210a",
+      "after_sha256": "07b2683781f9aecf601b779c5cc586053103597e21961e876ec69e25dd0db8f5",
+      "edits": [
+        {
+          "start": 31,
+          "end": 31,
+          "replacement": "from .workbench import WorkBenchOfficialEnvironment  # noqa: F401\n"
+        }
+      ]
+    },
+    {
+      "path": "tacomas/meta_evolution/mas_base_agent.py",
+      "before_sha256": "6c302e7eb74ff0b22c2cfcf51877d5e6e9d99a05a915488eb4a665921d040efc",
+      "after_sha256": "9db3b95f6c3a0947f62cd8c471215d293f543d517a42e9df47239e06d4d7874f",
+      "edits": [
+        {
+          "start": 51,
+          "end": 51,
+          "replacement": "\n\ndef tool_error_message(tool_call: Dict[str, Any], error: Exception) -> Dict[str, Any]:\n    \"\"\"Close a pending OpenAI tool call even when local execution fails.\"\"\"\n    call_id = str(tool_call.get(\"id\", \"\")).strip()\n    if not call_id:\n        raise ValueError(\"A failed tool call must carry a tool-call id\")\n    tool_name = str(tool_call.get(\"name\", \"unknown_tool\"))\n    return {\n        \"role\": \"tool\",\n        \"tool_call_id\": call_id,\n        \"name\": tool_name,\n        \"content\": (\n            f\"ERROR: Tool **{tool_name}** failed with error: {error}. \"\n            \"Please check the tool call.\"\n        ),\n    }\n"
+        },
+        {
+          "start": 662,
+          "end": 665,
+          "replacement": "                    # A pending assistant tool call must be followed by a tool\n                    # response with the same id, including on local failure.\n                    error_msg = tool_error_message(tool_call, e)\n"
+        }
+      ]
+    },
+    {
+      "path": "tacomas/meta_evolution/mas_runtime.py",
+      "before_sha256": "a4c58e04a8de4305a41ef4c050fe842a0a100fb6576545f7efe03de691034153",
+      "after_sha256": "66592a81185b0b82c1dc7fe6eef5dc6991c5bec67a375129bd590697ccafe13b",
+      "edits": [
+        {
+          "start": 234,
+          "end": 234,
+          "replacement": "            \"workbench-official\": \"skill/workbench_playbook/SKILL.md\",\n"
+        },
+        {
+          "start": 2470,
+          "end": 2471,
+          "replacement": "            elif self.dataset_id in {\"workbench\", \"workbench-official\"}:\n"
+        }
+      ]
+    }
+  ]
+}

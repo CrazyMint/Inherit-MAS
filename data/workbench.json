@@ -1,0 +1,941 @@
+{
+  "coverage_by_source": {
+    "analytics": 20,
+    "calendar": 20,
+    "customer_relationship_manager": 10,
+    "email": 20,
+    "multi_domain": 40,
+    "project_management": 20
+  },
+  "dataset_pin": {
+    "combined_sha256": "bb757b086359d9fa4756b292d58c7ad0b733876c08eb2358c907fa9a8cb65ffc",
+    "commit": "da6f8ee8d9f8efc87b2f5f3cc9edc1befdac726e",
+    "per_file_sha256": {
+      "analytics": "d99dd61758a7ab6cd7c81cbc892701c8e54e0fe6711ea86395686a8ac5006290",
+      "calendar": "196d2706626af0fc222e666bc830044150b870b2761713df774877c549ce83eb",
+      "customer_relationship_manager": "cb894a33aeb9be1ad91f39d8f84615873fefc2875365772c6f5747373109badf",
+      "email": "70b4fa7a98a8cc767721fe0e877cc5c41b60e4a9c95eb27af5f5ba605548bb33",
+      "multi_domain": "c4dc69491d81d12cea9d6e18181dbeb82b351487b8922b3c17a6128ceccac83a",
+      "project_management": "5953f6a8ac714ecf6ad0ecf12df8aa986d8ac56b68f247e9781df2018c475057"
+    }
+  },
+  "manifest_digest": "735cb455aa9fdbbc1b4ce7819ef1e6e2c584f39f21fc005b911b8154d05afb68",
+  "n": 130,
+  "n_templates": 13,
+  "selection": "all instances of all 13 pre-existing final templates; public fields only",
+  "split_source_sha256": "b25295d8ea927ef90da5004215ccd0d4ed4025a717945137ede45fa59c179a8c",
+  "stage": "workbench_final",
+  "tasks": [
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0010",
+      "source": "analytics",
+      "task": "please plot the distribution of the total visits metric on October 10",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0011",
+      "source": "analytics",
+      "task": "please plot the distribution of the total visits metric on October 20",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0012",
+      "source": "analytics",
+      "task": "Can you make a histogram of total visits on September 20?",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0013",
+      "source": "analytics",
+      "task": "please plot the distribution of the total visits metric on September 9",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0014",
+      "source": "analytics",
+      "task": "please plot the distribution of the total visits metric on October 17",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0015",
+      "source": "analytics",
+      "task": "please plot the distribution of the average session duration metric on September 11",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0016",
+      "source": "analytics",
+      "task": "please plot the distribution of the total visits metric on November 14",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0017",
+      "source": "analytics",
+      "task": "please plot the distribution of the engaged users metric on November 15",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0018",
+      "source": "analytics",
+      "task": "please plot the distribution of the engaged users metric on November 29",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "Plot the distribution of {natural_language_metric} on {natural_language_date}",
+      "id": "analytics#0019",
+      "source": "analytics",
+      "task": "Plot the distribution of total visits on October 28",
+      "template_id": "c89d3fafcd30644ff4d2df0c192c6646a053883cce4abda67bd2ff19b4fd4181"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0060",
+      "source": "analytics",
+      "task": "Is engaged users more than 5% lower than September 25? If so, please plot it as a line chart",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0061",
+      "source": "analytics",
+      "task": "Can you make a line chart of engaged users since October 3 if it was more than 3% lower than October 3?",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0062",
+      "source": "analytics",
+      "task": "Is engaged users more than 5% higher than September 26? If so, please plot it as a line chart",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0063",
+      "source": "analytics",
+      "task": "Is total visits more than 5% lower than September 28? If so, please plot it as a line chart",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0064",
+      "source": "analytics",
+      "task": "Can you make a line chart of total visits since September 15 if it was more than 3% lower than September 15?",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0065",
+      "source": "analytics",
+      "task": "If engaged users is more than 3% higher than November 18, make a line plot of it since then",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0066",
+      "source": "analytics",
+      "task": "Is total visits more than 10% lower than October 21? If so, please plot it as a line chart",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0067",
+      "source": "analytics",
+      "task": "If engaged users is more than 10% lower than November 24, make a line plot of it since then",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0068",
+      "source": "analytics",
+      "task": "Can you make a line chart of engaged users since October 21 if it was more than 10% higher than October 21?",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "If {natural_language_metric} is more than {natural_language_growth_threshold} {higher_or_lower} than {natural_language_date}, make a line plot of it since then",
+      "id": "analytics#0069",
+      "source": "analytics",
+      "task": "If average session duration is more than 3% lower than October 4, make a line plot of it since then",
+      "template_id": "046a2312827ac25be7849521f489740be3213ca3e1c5000d551f1a15b87d3f8c"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0010",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 19 to casual catch-up",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0011",
+      "source": "calendar",
+      "task": "Can you change the name of the last event on November 30 to brainstorming session",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0012",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 4 to weekly summary",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0013",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 12 to Machine Learning Chat",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0014",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 5 to quarterly tech roundup",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0015",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 4 to feedback discussion",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0016",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 8 to feedback discussion",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0017",
+      "source": "calendar",
+      "task": "Can you change the name of the last event on December 14 to quarterly tech roundup",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0018",
+      "source": "calendar",
+      "task": "Rename the last event on December 14 to Customer Insight Forum",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Change the name of the last event on {natural_language_date} to {event_name}",
+      "id": "calendar#0019",
+      "source": "calendar",
+      "task": "Change the name of the last event on December 15 to Product Launch Analysis",
+      "template_id": "228316f1e7c742b0bebe6487bc559d0362dcc1258fdd5c5b540db2b31fe72b91"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0080",
+      "source": "calendar",
+      "task": "Cancel all future meetings with raj",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0081",
+      "source": "calendar",
+      "task": "carlos is leaving the company. Can you cancel all future meetings with them?",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0082",
+      "source": "calendar",
+      "task": "Cancel all future meetings with anaya",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0083",
+      "source": "calendar",
+      "task": "luis is leaving the company. Can you cancel all future meetings with them?",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0084",
+      "source": "calendar",
+      "task": "I need to cancel all future meetings with olga. Can you do that for me please?",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0085",
+      "source": "calendar",
+      "task": "Cancel all future meetings with yuki",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0086",
+      "source": "calendar",
+      "task": "Cancel all future meetings with nia",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0087",
+      "source": "calendar",
+      "task": "leila is leaving the company. Can you cancel all future meetings with them?",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0088",
+      "source": "calendar",
+      "task": "kofi is leaving the company. Can you cancel all future meetings with them?",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Cancel all future meetings with {name}",
+      "id": "calendar#0089",
+      "source": "calendar",
+      "task": "Cancel all future meetings with amir",
+      "template_id": "899f36064642bdec5d533af7e4430ef2f4b9ff7b5a5728376d3a07585c308791"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0060",
+      "source": "customer_relationship_manager",
+      "task": "We no longer need to keep all of Sofia's customers that are in the won stage and interested in services. Can you delete them from the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0061",
+      "source": "customer_relationship_manager",
+      "task": "We no longer need to keep all of Sofia's customers that are in the qualified stage and interested in services. Can you delete them from the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0062",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Raj's customers that are in the lost stage and interested in software to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0063",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Lena's customers that are in the qualified stage and interested in hardware to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0064",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Akira's customers that are in the qualified stage and interested in services to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0065",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Akira's customers that are in the proposal stage and interested in software to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0066",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Nadia's customers that are in the qualified stage and interested in training to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0067",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Raj's customers that are in the won stage and interested in consulting to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0068",
+      "source": "customer_relationship_manager",
+      "task": "I need to move all of Raj's customers that are in the qualified stage and interested in services to lost. Can you make that change in the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Delete all of {assigned_to_first_name}'s customers that are in the {new_status_natural_language} stage and interested in {natural_language_product_interest} in the crm",
+      "id": "customer_relationship_manager#0069",
+      "source": "customer_relationship_manager",
+      "task": "We no longer need to keep all of Akira's customers that are in the lost stage and interested in hardware. Can you delete them from the crm?",
+      "template_id": "31f2fc94a8f7df587ea7c11fe80b48f2106302b2afbf82a20aa4248ad9d82bbc"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0030",
+      "source": "email",
+      "task": "I need to get back to yuki's last email about 'Update on Client Appreciation Gala' with 'Thanks for the update - I will get back to you tomorrow. Can you send the reply for me?",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0031",
+      "source": "email",
+      "task": "Reply to yuki's last email about 'Update on Corporate Social Responsibility Initiative' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0032",
+      "source": "email",
+      "task": "I need to get back to dmitri's last email about 'Update on team coordination meeting' with 'Thanks for the update - I will get back to you tomorrow. Can you send the reply for me?",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0033",
+      "source": "email",
+      "task": "Reply to anaya's last email about 'Update on Innovation and Creativity Hackathon' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0034",
+      "source": "email",
+      "task": "I need to get back to amir's last email about 'Update on Risk Management Forum' with 'Thanks for the update - I will get back to you tomorrow. Can you send the reply for me?",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0035",
+      "source": "email",
+      "task": "Reply to nia's last email about 'Task Update on Design logo for website' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0036",
+      "source": "email",
+      "task": "I need to get back to lena's last email about 'Update on Leadership Training Workshop' with 'Thanks for the update - I will get back to you tomorrow. Can you send the reply for me?",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0037",
+      "source": "email",
+      "task": "Reply to raj's last email about 'Update on IT Systems Update Briefing' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0038",
+      "source": "email",
+      "task": "Reply to chenwei's last email about 'Task Update on Develop prototype for login system' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Reply to {name}'s last email about '{subject}' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "id": "email#0039",
+      "source": "email",
+      "task": "Reply to yuki's last email about 'Task Update on Add authentication for email notification' with 'Thanks for the update - I will get back to you tomorrow.'",
+      "template_id": "8175a988b4e8806d68f0fa2408802b87f9762f63d0f166475d6caa95a1ea40f3"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0040",
+      "source": "email",
+      "task": "carlos needs all the emails from chenwei last week about 'Update on Supply Chain Enhancement Workshop'. Can you forward them?",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0041",
+      "source": "email",
+      "task": "can you forward all the emails from anaya last week about 'Update on Board of Directors Conclave' to nadia",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0042",
+      "source": "email",
+      "task": "nia needs all the emails from sofia last week about 'Update on Risk Management Forum'. Can you forward them?",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0043",
+      "source": "email",
+      "task": "chenwei needs all the emails from nadia last week about 'Task Update on Improve UX of feedback submission'. Can you forward them?",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0044",
+      "source": "email",
+      "task": "Forward all the emails from fatima last week about 'Task Update on Develop prototype for report generation' to anaya",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0045",
+      "source": "email",
+      "task": "Forward all the emails from anaya last week about 'Update on status briefing' to amir",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0046",
+      "source": "email",
+      "task": "Forward all the emails from sofia last week about 'Task Update on Improve UX of onboarding process' to amir",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0047",
+      "source": "email",
+      "task": "Forward all the emails from amir last week about 'Task Update on Update brand colors in website' to yuki",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0048",
+      "source": "email",
+      "task": "Forward all the emails from akira last week about 'Update on Client Appreciation Gala' to kofi",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Forward all the emails from {name} last week about '{subject}' to {recipient_name}",
+      "id": "email#0049",
+      "source": "email",
+      "task": "carlos needs all the emails from nia last week about 'Update on introductory call'. Can you forward them?",
+      "template_id": "bf97a5a32ad55159bd4a0c861522b4e6226dd3faec283da90907647b993a9f67"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0030",
+      "source": "multi_domain",
+      "task": "Can you send an email to attendees of the first event on November 30? Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0031",
+      "source": "multi_domain",
+      "task": "I need to make sure everyone remembers to attend the first event on December 11. Can you send an email to the attendees with the event name as the title and 'Remember to attend this event.' in the email?",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0032",
+      "source": "multi_domain",
+      "task": "Can you send an email to attendees of the first event on December 21? Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0033",
+      "source": "multi_domain",
+      "task": "Send an email to attendees of the first event on December 12. Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0034",
+      "source": "multi_domain",
+      "task": "I need to make sure everyone remembers to attend the first event on December 1. Can you send an email to the attendees with the event name as the title and 'Remember to attend this event.' in the email?",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0035",
+      "source": "multi_domain",
+      "task": "Can you send an email to attendees of the first event on December 12? Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0036",
+      "source": "multi_domain",
+      "task": "Send an email to attendees of the first event on December 15. Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0037",
+      "source": "multi_domain",
+      "task": "I need to make sure everyone remembers to attend the first event on December 6. Can you send an email to the attendees with the event name as the title and 'Remember to attend this event.' in the email?",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0038",
+      "source": "multi_domain",
+      "task": "I need to make sure everyone remembers to attend the first event on December 21. Can you send an email to the attendees with the event name as the title and 'Remember to attend this event.' in the email?",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "Send an email to attendees of the first event on {natural_language_event_date}. Title it with the event name and tell them 'Remember to attend this event.'",
+      "id": "multi_domain#0039",
+      "source": "multi_domain",
+      "task": "Can you send an email to attendees of the first event on December 8? Title it with the event name and tell them 'Remember to attend this event.'",
+      "template_id": "2460da69f5c71e90991f4b875cf827d5099ca31f18262a8db4f438f5e4b9590b"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0040",
+      "source": "multi_domain",
+      "task": "if yuki hasn't sent me any emails in the past 4 days, schedule a half hour meeting with them for Friday at 12 and call it 'Catch up with yuki'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0041",
+      "source": "multi_domain",
+      "task": "If nadia hasn't sent me any emails in the past 2 days, schedule a 30 minute meeting with them for Wednesday at 2:30 called 'Catch up with nadia'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0042",
+      "source": "multi_domain",
+      "task": "If luis hasn't sent me any emails in the past 4 days, schedule a 30 minute meeting with them for Tuesday at 9:30 called 'Catch up with luis'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0043",
+      "source": "multi_domain",
+      "task": "I can't remember the last time I heard from kofi. Can you check if they've sent me any emails in the past 4 days? If not, schedule a 30 minute meeting with them for Tuesday at 10:30 called 'Catch up with kofi'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0044",
+      "source": "multi_domain",
+      "task": "I can't remember the last time I heard from yuki. Can you check if they've sent me any emails in the past 2 days? If not, schedule a 30 minute meeting with them for Friday at 3:30 called 'Catch up with yuki'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0045",
+      "source": "multi_domain",
+      "task": "if fatima hasn't sent me any emails in the past 3 days, schedule a half hour meeting with them for Friday at 12 and call it 'Catch up with fatima'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0046",
+      "source": "multi_domain",
+      "task": "I can't remember the last time I heard from yuki. Can you check if they've sent me any emails in the past 4 days? If not, schedule a 30 minute meeting with them for Monday at 3 called 'Catch up with yuki'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0047",
+      "source": "multi_domain",
+      "task": "if fatima hasn't sent me any emails in the past 3 days, schedule a half hour meeting with them for Monday at 9:30 and call it 'Catch up with fatima'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0048",
+      "source": "multi_domain",
+      "task": "If akira hasn't sent me any emails in the past 2 days, schedule a 30 minute meeting with them for Tuesday at 12:30 called 'Catch up with akira'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If {sender_name} hasn't sent me any emails in the past {days} days, schedule a 30 minute meeting with them for {day_of_week} at {natural_language_time} called 'Catch up with {sender_name}'",
+      "id": "multi_domain#0049",
+      "source": "multi_domain",
+      "task": "If akira hasn't sent me any emails in the past 3 days, schedule a 30 minute meeting with them for Friday at 2:30 called 'Catch up with akira'",
+      "template_id": "1df19602b0a81debc98fd1ba114bfe3259c762a0c53b6fc32c93c62f8f52f7c4"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0060",
+      "source": "multi_domain",
+      "task": "Did I already schedule a meeting with leila in the next 3 days? If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0061",
+      "source": "multi_domain",
+      "task": "I need to check if I have any meetings scheduled with akira in the next 4 days. If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0062",
+      "source": "multi_domain",
+      "task": "Did I already schedule a meeting with carlos in the next 2 days? If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0063",
+      "source": "multi_domain",
+      "task": "If I don't have any meetings scheduled with anaya in the next 4 days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0064",
+      "source": "multi_domain",
+      "task": "Did I already schedule a meeting with akira in the next 2 days? If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0065",
+      "source": "multi_domain",
+      "task": "Did I already schedule a meeting with lena in the next 2 days? If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0066",
+      "source": "multi_domain",
+      "task": "If I don't have any meetings scheduled with aisha in the next 3 days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0067",
+      "source": "multi_domain",
+      "task": "I need to check if I have any meetings scheduled with amir in the next 2 days. If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0068",
+      "source": "multi_domain",
+      "task": "Did I already schedule a meeting with anaya in the next 3 days? If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If I don't have any meetings scheduled with {name} in the next {days} days, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "id": "multi_domain#0069",
+      "source": "multi_domain",
+      "task": "I need to check if I have any meetings scheduled with aisha in the next 4 days. If not, send them an email titled 'Catch up soon?' saying 'We have not caught up in a while - can you send some availability over next week?'",
+      "template_id": "b22a0218513c217ded226131dd79211741f365dc7d87a1441d8eecea9bfcd1b1"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0110",
+      "source": "multi_domain",
+      "task": "can you check if total visits was more than 21 at any time since October 12? If so, make a backlog task called 'Improve total visits' for dmitri on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0111",
+      "source": "multi_domain",
+      "task": "can you check if total visits was less than 10 at any time since October 11? If so, make a backlog task called 'Improve total visits' for anaya on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0112",
+      "source": "multi_domain",
+      "task": "can you check if engaged users was less than 5 at any time since November 20? If so, make a backlog task called 'Improve engaged users' for kofi on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0113",
+      "source": "multi_domain",
+      "task": "can you check if average session duration was less than 19 at any time since October 20? If so, make a backlog task called 'Improve average session duration' for luis on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0114",
+      "source": "multi_domain",
+      "task": "Was average session duration more than 41 at any time since October 28? If so, make a backlog task called 'Improve average session duration' on the front-end board and assign it to for anaya with next Friday as the deadline",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0115",
+      "source": "multi_domain",
+      "task": "Was engaged users more than 11 at any time since October 9? If so, make a backlog task called 'Improve engaged users' on the front-end board and assign it to for nia with next Friday as the deadline",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0116",
+      "source": "multi_domain",
+      "task": "can you check if average session duration was less than 19 at any time since October 20? If so, make a backlog task called 'Improve average session duration' for anaya on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0117",
+      "source": "multi_domain",
+      "task": "If total visits was more than 21 at any time since November 29 make a backlog task called 'Improve total visits' for santiago on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0118",
+      "source": "multi_domain",
+      "task": "can you check if engaged users was more than 5 at any time since September 24? If so, make a backlog task called 'Improve engaged users' for fatima on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "If {natural_language_metric} was {more_or_less} than {threshold} at any time since {natural_language_date} make a backlog task called 'Improve {natural_language_metric}' for {name} on the front-end board with a deadline of next Friday",
+      "id": "multi_domain#0119",
+      "source": "multi_domain",
+      "task": "If engaged users was less than 5 at any time since November 22 make a backlog task called 'Improve engaged users' for dmitri on the front-end board with a deadline of next Friday",
+      "template_id": "4de093eda62346b1aa65c02174af670049ae308b492f21627a02e5746805588e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0030",
+      "source": "project_management",
+      "task": "can you move any of luis's tasks that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0031",
+      "source": "project_management",
+      "task": "Move any of kofi's tasks that are in review to completed",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0032",
+      "source": "project_management",
+      "task": "can you move any of anaya's tasks that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0033",
+      "source": "project_management",
+      "task": "can you move any of fatima's tasks that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0034",
+      "source": "project_management",
+      "task": "Move any of luis's tasks that are in review to completed",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0035",
+      "source": "project_management",
+      "task": "I've finished reviewing all of fatima's tasks. Can you move all the ones that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0036",
+      "source": "project_management",
+      "task": "I've finished reviewing all of leila's tasks. Can you move all the ones that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0037",
+      "source": "project_management",
+      "task": "can you move any of amir's tasks that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0038",
+      "source": "project_management",
+      "task": "can you move any of dmitri's tasks that are in review to completed?",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "Move any of {name}'s tasks that are in review to completed",
+      "id": "project_management#0039",
+      "source": "project_management",
+      "task": "Move any of nia's tasks that are in review to completed",
+      "template_id": "c165910c992e1b961195ed9d7dc3f304339a8e9c000b17edd3af147530bedb3e"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0040",
+      "source": "project_management",
+      "task": "dmitri is sick so reassign their in progress tasks to jinsoo.",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0041",
+      "source": "project_management",
+      "task": "can you reassign all of olga's in progress tasks to nia?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0042",
+      "source": "project_management",
+      "task": "yuki is sick so reassign their in progress tasks to carlos.",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0043",
+      "source": "project_management",
+      "task": "I need to reassign all of amir's in progress tasks to anaya. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0044",
+      "source": "project_management",
+      "task": "I need to reassign all of nia's in progress tasks to dmitri. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0045",
+      "source": "project_management",
+      "task": "I need to reassign all of santiago's in progress tasks to leila. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0046",
+      "source": "project_management",
+      "task": "can you reassign all of santiago's in progress tasks to fatima?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0047",
+      "source": "project_management",
+      "task": "I need to reassign all of fatima's in progress tasks to dmitri. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0048",
+      "source": "project_management",
+      "task": "I need to reassign all of chenwei's in progress tasks to yuki. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    },
+    {
+      "base_template": "{name_1} is sick so reassign their in progress tasks to {name_2}.",
+      "id": "project_management#0049",
+      "source": "project_management",
+      "task": "I need to reassign all of anaya's in progress tasks to leila. Can you do that?",
+      "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
+    }
+  ],
+  "version": "meridian-paper-v1-manifests/1"
+}

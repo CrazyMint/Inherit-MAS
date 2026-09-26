@@ -1,0 +1,2126 @@
+{
+  "coverage_by_public_level_type": {
+    "easy/bridge": 61,
+    "easy/comparison": 18,
+    "hard/bridge": 38,
+    "hard/comparison": 12,
+    "medium/bridge": 142,
+    "medium/comparison": 29
+  },
+  "dataset_revision": "6a549770f8ef38e07138f452a2fbee89f20f32313c459cf968b2694dcf492688",
+  "excluded_manifest_digests": {
+    "api_preflight_1.json": "58d0b54ddbaae8069d34dc32d3d16e7a233324352a802d65571ffc73406d8c33",
+    "calibration.json": "196e672dd957b1bdf844320e6cdedba83e9e2e2f967bd41d252af75529e3cb0f",
+    "engineering_smoke.json": "ecec72d3467621b782449631bbcc49401fe8e50009e4849d97ae952ddcfc2b1b",
+    "generalization_evaluation_v3.json": "a66da4fa979d05c7c684a0fb912d8fabe9887d05ebe2606274350babef886274",
+    "generalization_qualification_v3.json": "8cf68fbfbb8708683e784404753ad2cc01de7e5d7ed0cdb8ea107f111e319bf5",
+    "powered_pool.json": "578eb4db2a40f326d1e19a51c12ef98a6b8200b8be85e17ff61588bce37d486c"
+  },
+  "manifest_digest": "2906dbaea95460c38d037c8d7a605f77add5d5b92f551c612cfe618dde4a4cc5",
+  "n": 300,
+  "rows": [
+    {
+      "id": "5addc96e5542997dc7907026",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac156e35542994d76dccddb",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7ffd7c55429969796c1b8f",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae2a2115542992decbdcd64",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab55b4d554299637185c570",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5add78395542992200553b32",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a77783055429967ab1051ab",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5adf93ab5542995ec70e9043",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abebf8a5542997719eab5b4",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5aba819255429901930fa7ef",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae535265542990ba0bbb220",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae1973b5542997b2ef7d209",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac17cd85542994d76dcce76",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae209c45542997283cd2344",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae475af55429970de88d971",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8cb5d65542996e8ac88b34",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab6d2ac554299710c8d1f78",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7cf38855429907fabef058",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8cd842554299441c6b9f20",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a75ded75542992d0ec06005",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab5cb19554299637185c615",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac5457e5542994611c8b484",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac147be5542994ab5c67cd6",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a860d1d55429960ec39b615",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a77401055429972597f14d3",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7160055542994082a3e7ff",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7cf9ac55429909bec768d6",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8841c55542994846c1ce6a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac1202c5542992a796dedf7",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7d9d695542995f4f40228f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8eedf55542995a26add564",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab83e2d55429934fafe6d31",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7b7df65542997c3ec971c6",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5aba64a455429939ce03dcc6",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab971be55429970cfb8eaf7",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8d4e8155429941ae14df9c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab32233554299233954ff21",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adc6d4d55429947ff17395b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade51dd554299728e26c6c6",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a72bf715542992359bc3196",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8a04355542992d82986e4f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae7f131554299540e5a56c8",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adcd0b45542994d58a2f6e3",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab1f66e554299706120959e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae003f855429906c02daaa6",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adee6da55429975fa854fb1",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a90764555429916514e74cb",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a779ee45542992a6e59df2d",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae3148f55429928c42395dd",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a773eac55429972597f14cc",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae5e8985542996de7b71a66",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8d72eb554299068b959d02",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae5667155429960a22e02eb",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a87aa6d5542993e715abfd1",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac3b0b5554299204fd21e04",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8316a155429954d2e2ec12",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac08c5a5542996f0d89cc0b",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac0f3ec5542996f0d89cc40",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8b313c55429949d91db4db",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a81d09f55429903bc27b9c9",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5add31d05542994ed6169cc9",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac39bfd5542993915413816",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abfa9635542997ec76fd425",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab7f5c35542992aa3b8c892",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae64cab5542991bbc9760be",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae6a76a5542991bbc976164",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7bf582554299683c1c62c6",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a86ef97554299211dda2b59",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8f4e5d554299458435d5a8",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8abfc15542996c9b8d5f6e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a74ea385542993748c89733",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab8030e55429936677940a2",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a88722455429938390d3f6a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac2f09e554299218029dba1",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adf2dcd5542993344016c0f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5add68785542992200553aff",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7d0e885542990527d55547",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8a770b55429930ff3c0de2",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae6f683554299572ea5464d",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8edf2b5542995a26add53a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7a4d3f5542990783324f03",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5adc09aa5542996e685252b5",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abe6c6f55429965af743ef8",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a77da255542995d8318130c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abae247554299660624165c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a77bc2c5542992a6e59dfa6",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7f2ca15542993067513672",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a84d0f95542992a431d1aa5",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae22af45542996483e6491c",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac52ef95542994611c8b3ff",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae07c9355429945ae95936e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8b342755429950cd6afc72",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab302e4554299166977417a",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a84b9615542997b5ce3ff31",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae0425f55429924de1b707e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7a237b5542996a35c170f0",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae65e985542996d980e7b1e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade86b855429975fa854eee",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8db41c554299068b959dc8",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a78d22c554299029c4b5ea9",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7ada145542995eb53be8ab",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac44df05542995c82c4ad24",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a89143955429951533612b7",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae10d9f55429901ffe4ad2e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac1bafd5542991316484baf",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae476a65542995ad6573d46",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae55c275542990ba0bbb287",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a83353955429954d2e2ec5d",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab5eb655542997d4ad1f24d",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8ee1325542995a26add54b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab8560555429916710eb03c",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a864f735542991e7718160b",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae10c305542990adbacf70a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a89f96b55429970aeb701cb",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a75c4055542992db94736b6",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab967b855429970cfb8eac0",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a80e7dd55429938b6142247",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5aba915a55429901930fa83a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7fc7b555429969796c1b5c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a77854e5542995d8318118d",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a90ae8c5542990a98493694",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab3b9925542992ade7c6e5f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7a43d05542996c55b2dd49",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae4088955429970de88d88e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab503855542990594ba9cc6",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adeb33c55429939a52fe963",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae5f2a655429929b0807a33",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5add2abf5542990d50227e0f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab7e5545542992aa3b8c87f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab9185955429916710eb0ff",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abed12f5542993fe9a41d4a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8f12215542995b44241f4e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a80b19f554299485f5986c1",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae3286f5542991a06ce993a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab33cec554299753aec595c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7d20b055429909bec76973",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a9054635542995b442420a4",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8d9ce1554299441c6ba013",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8c4d1c5542995e66a475a4",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a75f2a055429976ec32bcb5",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac2d896554299657fa2909b",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac4b636554299076e296dd8",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8b3b7c55429971feec467e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac0a04a554299012d1db60a",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7c920355429935c91b522b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a84e8b05542994c784dda83",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a74668b55429979e288293d",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5aba971a554299232ef4a353",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae786b85542994a481bbd57",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae526dc5542990ba0bbb1d4",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae4793555429913cc20447a",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7e5451554299495941999c",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a846be6554299123d8c2251",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae0bfd05542993d6555ec39",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8105c9554299260e20a205",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab7f14a5542995dae37e9fc",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac1aca655429963665198e0",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a735f5c5542991f29ee2dc4",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ac0014b5542990832d3a1ef",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8c745f554299240d9c216e",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adf957e5542995534e8c7f9",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a79ee305542990198eaf007",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8f8b8d55429918e830d25a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a903aeb55429933b8a204ab",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a745bfc55429929fddd83fa",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab83d3555429934fafe6d2b",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abfe8395542997d64295933",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adfa0b3554299025d62a2fb",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab29c5c554299545a2cf9d2",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab76c465542995dae37e91a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae012b955429942ec259c0f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8f08385542995085b374dc",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8c5dc45542996e8ac88a81",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8784315542996e4f30881f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8ba22f5542995d1e6f142b",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7e71a45542991319bc94b8",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adfdef155429925eb1afadd",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abf13045542990832d3a11f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae547555542990ba0bbb253",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abd04fc554299700f9d7962",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a86f45555429960ec39b6f1",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a864e425542994775f60741",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae1a94d554299234fd042b5",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adf1ded5542995534e8c75a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae7ca8f5542994a481bbde0",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a864ef85542994775f60745",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac12fb85542994d76dccdae",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae4608d5542996836b02c92",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a73249d5542991f9a20c63f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8a5a5a55429970aeb702ad",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac2de5c55429921a00ab091",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab9e447554299232ef4a25b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7d41575542997cc2c4743c",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab585de554299488d4d99ca",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7fbd645542995d8a8ddf0b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac02619554299012d1db5be",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab39e8c554299753aec5976",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a80e3b255429938b6142234",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab6acde554299710c8d1f39",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a89d4c75542995153361330",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a75dcf155429976ec32bc46",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abd3b2855429924427fcf4f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a730faf5542992359bc3222",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a82083f554299676cceb1f2",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7e34e85542994959419928",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a74af735542996c70cfadac",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae3cf7e5542990afbd1e1e2",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab56d19554299637185c58e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae7803b5542994a481bbd14",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac076ec5542996f0d89cbe3",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae2703e554299495565da71",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8207d7554299676cceb1f1",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae621945542992ae0d16237",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adfc637554299025d62a34f",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab6ee875542991d322236d2",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a734cdf5542991f29ee2d7e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab5300955429942dd416018",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae3486d5542992e3233c36b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae10d7755429901ffe4ad2c",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8afb6b55429971feec45c0",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ab951b355429970cfb8ea55",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8a12555542992e4fca84f1",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae7f4355542993210983fce",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae649f55542992ae0d162b9",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a80c9d3554299260e20a15f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a878d9e5542996e4f308840",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8f617d5542997ba9cb323b",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abc3dc75542993a06baf8aa",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae3b3085542992f92d82346",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a86ec875542991e77181692",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a74e86655429929fddd8501",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abe3e335542993f32c2a0c6",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8f787c5542997ba9cb327e",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade2c91554299728e26c65b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab8908c55429919ba4e2322",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab97efe55429970cfb8eb26",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae728bd5542991e8301cb6b",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac3bbde5542993915413910",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae10f5f55429901ffe4ad39",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae7dd615542997ec27276f8",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac2bea8554299657fa29028",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7cf69d554299683c1c63f3",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac4d6595542997ea680caca",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a815fb2554299260e20a283",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7a26245542990783324e97",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade27df55429975fa854e96",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8b046d55429971feec4607",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae36f0f5542990afbd1e144",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab806315542991d32223809",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac46fbe5542991943173993",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a89ef6d5542992e4fca8495",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8dc809554299068b959df0",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7b5e215542992d025e6828",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a88a6685542997e5c09a687",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade2cf85542997c77aded9c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7288da5542992359bc30d7",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abc8a0e554299114383a143",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8cac56554299585d9e3715",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5adc70a95542994650320d04",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8b6a4355429950cd6afce6",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae137d555429901ffe4ae00",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adc5c2555429947ff173934",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a83674d5542996488c2e438",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae5990e554299546bf82efa",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab8760b55429934fafe6dd8",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a818f6f5542995ce29dcbff",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8e2c8d5542995085b373bd",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5abe4b4155429976d4830ade",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5add04ed5542994d58a2f741",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8c5454554299240d9c211f",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab247cc5542993be8fa98d0",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a8ba322554299240d9c204c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adffea355429942ec259bc5",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a754c1155429916b01642e9",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7df75f5542997cc2c474d6",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5adfe12e55429942ec259b67",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae820495542997ec2727723",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae0ed02554299422ee9955c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a790a435542990784727797",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7ed1125542994959419a79",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab5ef2e5542997d4ad1f25d",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7ec18055429930675135d5",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7f691d5542994857a76730",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae69c005542996d980e7c5a",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab67cb855429954757d32fe",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abbb00d5542993f40c73b7a",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae6f6ea554299572ea5464e",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ade188755429975fa854e3b",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5abd08ae554299700f9d7980",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7b73225542997c3ec97189",
+      "level": "easy",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac2754d55429921a00aaf7c",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ac1b48f55429963665198f3",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a802dc35542992bc0c4a6c5",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a7d5d4a5542991319bc93b3",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5ae209215542997f29b3c216",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5a867151554299211dda2b32",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a7fa3885542994857a76796",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "comparison"
+    },
+    {
+      "id": "5a8ce3b5554299585d9e3756",
+      "level": "hard",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ae0e5165542990adbacf6b7",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    },
+    {
+      "id": "5ab90f0f55429934fafe6e54",
+      "level": "medium",
+      "source": "train",
+      "split": "adaptive_search",
+      "type": "bridge"
+    }
+  ],
+  "selection": "public-metadata-only deterministic hash over train/adaptive_search; excludes every row in every earlier frozen HotpotQA manifest",
+  "stage": "hotpotqa_fullwiki_final",
+  "version": "meridian-paper-v1-manifests/1"
+}

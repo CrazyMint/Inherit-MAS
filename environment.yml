@@ -1,0 +1,8 @@
+name: inherit-mas
+channels: [conda-forge]
+dependencies:
+  - python=3.10
+  - openjdk=21        # JVM for Pyserini/Lucene BM25 (HotpotQA only)
+  - pip
+  - pip:
+      - -r requirements.txt

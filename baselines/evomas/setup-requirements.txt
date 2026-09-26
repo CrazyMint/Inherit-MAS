@@ -1,0 +1,17 @@
+# Standalone requirements: install in a separate EvoMAS environment, not together
+# with the root requirements. Native Hotpot retrieval uses HOTPOT_BM25_URL.
+# Versions verified in the native execution environment; no GPU runtime needed.
+smolagents==1.26.0
+pydantic==2.13.4
+PyYAML==6.0.3
+openai==2.44.0
+pandas==3.0.3
+python-dotenv==1.2.2
+numpy==2.4.6
+requests==2.34.2
+datasets==5.0.0
+pyarrow==24.0.0
+tiktoken==0.13.0
+tenacity==9.1.4
+tqdm==4.67.3
+pytest==9.0.3

@@ -1,0 +1,24 @@
+"""Default HotpotQA FullWiki retrieval, model, and execution settings."""
+
+BEIR_INDEX = "beir-v1.0.0-hotpotqa.flat"
+BEIR_INDEX_ARCHIVE = "lucene-inverted.beir-v1.0.0-hotpotqa.flat.20221116.505594.tar.gz"
+BEIR_INDEX_MD5 = "3f41d640a8ebbcad4f598140750c24f8"
+BM25_K1 = 0.9
+BM25_B = 0.4
+RETRIEVAL_TOP_K = 5
+RETRIEVAL_CALLS_PER_CANDIDATE = 4
+MAX_CANDIDATES = 5
+
+WORKER_MODEL = "gpt-4o-mini"
+META_MODEL = "gpt-5.4-mini"
+LOCAL_PREFLIGHT_MODEL = "qwen3-14b"
+
+WORKER_MAX_TOKENS = 900
+META_MAX_TOKENS = 1600
+JUDGE_MAX_TOKENS = 900
+MAX_TOOL_TURNS = 5
+
+SMOKE_N = 20
+CALIBRATION_N = 100
+POWERED_POOL_N = 500
+SMOKE_API_USD_CAP = 15.0

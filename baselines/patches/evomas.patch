@@ -1,0 +1,1046 @@
+--- a/main.py
++++ b/main.py
+@@ -13,6 +13,7 @@
+     python main.py --dataset workbench_email --max-steps 3
+ """
+ 
++import os
+ import sys
+ import random
+ import argparse
+@@ -21,8 +22,38 @@
+ from typing import Dict, Any, List, Optional, Union
+ 
+ from src.meta_model.metamodel import MetaModel
++from src.models.worker_policy import validate_worker_palette
+ from src.meta_model.selection import selection_operator, select_with_diversity
+ from src.meta_model.reward import compute_reward
++from src.utils.cost_ledger import LEDGER as COST_LEDGER
++from src.utils.candidate_dump import dump_candidate
++
++
++def _meta_usage_snapshot(meta_model):
++    """Snapshot the meta-model's cumulative token usage (for a per-op cost delta)."""
++    try:
++        m = getattr(meta_model, "model", None)
++        if m is not None and hasattr(m, "get_cumulative_token_usage"):
++            return m.get_cumulative_token_usage()
++    except Exception:
++        pass
++    return None
++
++
++def _record_meta_op(meta_model, phase, before):
++    """Record one meta-model operator's LLM cost (additive; no effect on results)."""
++    try:
++        if before is None:
++            return
++        after = meta_model.model.get_cumulative_token_usage()
++        COST_LEDGER.record(
++            phase=phase, role="meta-model",
++            model_id=getattr(meta_model, "model_id", "") or "",
++            input_tokens=after.get("input_tokens", 0) - before.get("input_tokens", 0),
++            output_tokens=after.get("output_tokens", 0) - before.get("output_tokens", 0),
++        )
++    except Exception:
++        pass
+ from src.meta_model.pool import ConfigurationPool, add_to_pool_if_better
+ from src.meta_model.experience import consolidate_evolution_trace
+ from src.meta_model.mas_index import MASIndex
+@@ -43,17 +74,12 @@
+ # Meta-model (planning / mutation / crossover / memory operators): Claude Sonnet 4.5.
+ META_MODEL_ID = "bedrock:global.anthropic.claude-sonnet-4-5-20250929-v1:0"
+ META_MODEL_TEMPERATURE = 0.7
+-META_MODEL_MAX_TOKENS = 8192
++# Env-overridable: reasoning models (glm/minimax) spend part of the output
++# budget on thinking tokens, so they need more headroom than the 8192 default.
++META_MODEL_MAX_TOKENS = int(os.environ.get("META_MODEL_MAX_TOKENS", "8192"))
+ 
+-# Available models for MAS worker agents. The meta-model can select from this
+-# list when generating a new MAS config. Qwen3 235B leads as the default worker
+-# model; Claude Sonnet/Haiku remain available for agents that need alternative
+-# capabilities.
+-DEFAULT_MODEL_LIST = [
+-    "bedrock:us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+-    "bedrock:qwen.qwen3-235b-a22b-2507-v1:0",
+-    "bedrock:qwen.qwen3-coder-480b-a35b-v1:0",
+-]
++# Native model mutation stays enabled within the authorized worker regime.
++DEFAULT_MODEL_LIST = ["azure:gpt-4o-mini"]
+ 
+ # Selection Settings
+ NUM_PARENTS = 2  # Number of parent configurations to select (k)
+@@ -89,6 +115,7 @@
+     "workbench_email": "mas_pools/workbench/email",
+     "workbench_multi_domain": "mas_pools/workbench/multi_domain",
+     "workbench_project_management": "mas_pools/workbench/project_management",
++    "hotpot_fullwiki": "mas_pools/hotpot_fullwiki",
+     # SWE-bench datasets
+     "swebench": "mas_pools/swebench",
+     "swe": "mas_pools/swebench",
+@@ -222,6 +249,7 @@
+     # Basic validation that applies regardless of batching
+     if model_list is None:
+         model_list = DEFAULT_MODEL_LIST
++    validate_worker_palette(model_list)
+     if max_steps < 1:
+         raise ValueError(f"max_steps must be >= 1, got {max_steps}")
+     if num_parents < 1:
+@@ -259,6 +287,10 @@
+         mem_dir.mkdir(parents=True, exist_ok=True)
+         memory_path = str(mem_dir / f"memory_{indicator}.json")
+ 
++    # --- additive: fresh cost ledger for this run ---
++    COST_LEDGER.reset()
++    COST_LEDGER.set_context(traj_root=str(output_dir))
++
+     # Fast path: no batching needed (task_ids too short or absent)
+     if task_ids is None or len(task_ids) <= batch_size:
+         return _run_single_batch(
+@@ -390,9 +422,13 @@
+     run_evolution_pipeline when batching is not needed, or once per chunk
+     when batching is.
+     """
++    # Honor the public seed argument for the mutation-vs-crossover draw.
++    random.seed(seed)
++
+     # Use default model list if not provided
+     if model_list is None:
+         model_list = DEFAULT_MODEL_LIST
++    validate_worker_palette(model_list)
+ 
+     # Parameter validation
+     if max_steps < 1:
+@@ -530,6 +566,8 @@
+         task_description += f"Example task {i+1}: {q}...\n"
+ 
+     # Use meta-model for selection (informed by MAS index + memory)
++    COST_LEDGER.set_context(step=0, config="select", traj_root=str(output_dir))
++    _b_meta = _meta_usage_snapshot(meta_model)
+     try:
+         parent_paths = meta_model.select(
+             task_query=task_query,
+@@ -538,6 +576,7 @@
+             k=num_parents,
+             mas_index=mas_index,
+         )
++        _record_meta_op(meta_model, "select", _b_meta)
+     except Exception as e:
+         # Fallback to programmatic selection if meta-model fails
+         logger.warning(f"Meta-model selection failed ({e}), falling back to diversity-based selection")
+@@ -581,15 +620,24 @@
+     all_configs = []
+     all_stats = []
+     all_rewards = []
++    all_labels = []  # candidate-dump lineage labels, parallel to all_configs
++    dump_candidate(output_dir, "_run", None, {
++        "dataset": dataset_name, "task_ids": task_ids,
++        "num_eval_tasks": num_eval_tasks, "seed": seed,
++        "max_steps": max_steps, "num_parents": num_parents,
++    })
+ 
+     for p_idx, p_path in enumerate(parent_paths):
+         logger.info(f"\nGENERATE: Adapting parent {p_idx+1}/{len(parent_paths)} ({Path(p_path).name}) to tasks")
++        COST_LEDGER.set_context(step=0, config=f"parent{p_idx}")
++        _b_meta = _meta_usage_snapshot(meta_model)
+         adapted_config = meta_model.generate(
+             mas_config_path=p_path,
+             task_samples=task_samples,
+             task_description=task_query,
+             model_list=model_list
+         )
++        _record_meta_op(meta_model, "generate", _b_meta)
+ 
+         adapted_path = temp_dir / f"step0_parent{p_idx}.yaml"
+         save_config(adapted_config, str(adapted_path))
+@@ -615,12 +663,19 @@
+         all_configs.append(adapted_config)
+         all_stats.append(adapted_stats)
+         all_rewards.append(adapted_reward)
++        all_labels.append(f"parent{p_idx}")
++        dump_candidate(output_dir, f"parent{p_idx}", adapted_config, {
++            "op": "generate", "step": 0,
++            "parents": [f"seed:{Path(p_path).stem}"], "seed_path": str(p_path),
++            "reward": adapted_reward, "accuracy": adapted_stats.get("accuracy"),
++        })
+ 
+     # Track best configuration across all k parents
+     best_idx = all_rewards.index(max(all_rewards))
+     best_config = all_configs[best_idx]
+     best_stats = all_stats[best_idx]
+     best_reward = all_rewards[best_idx]
++    best_label = all_labels[best_idx]
+ 
+     logger.info(f"\nBest initial parent: {best_idx+1} with reward {best_reward:.4f} (accuracy {fmt_acc(best_stats.get('accuracy', 0))})")
+ 
+@@ -659,13 +714,17 @@
+                 f"Total tokens: {best_stats.get('total_tokens', 0):,}\n"
+             )
+ 
++            COST_LEDGER.set_context(step=step, config=f"step{step}_mutation")
++            _b_meta = _meta_usage_snapshot(meta_model)
+             offspring_config = meta_model.mutate(
+                 mas_config=best_config,
+                 execution_logs=best_stats,
+                 observations=observations,
+                 model_list=model_list
+             )
++            _record_meta_op(meta_model, "mutate", _b_meta)
+             action_type = 'mutation'
++            cand_parents = [best_label]
+             offspring_path = temp_dir / f"step{step}_mutated.yaml"
+         else:
+             # ----------------------------------------------------------------
+@@ -682,6 +741,8 @@
+             parent1_idx = sorted_indices[0]
+             parent2_idx = sorted_indices[1]
+ 
++            COST_LEDGER.set_context(step=step, config=f"step{step}_crossover")
++            _b_meta = _meta_usage_snapshot(meta_model)
+             offspring_config = meta_model.crossover(
+                 mas_config_1=all_configs[parent1_idx],
+                 mas_config_2=all_configs[parent2_idx],
+@@ -689,7 +750,9 @@
+                 logs_2=all_stats[parent2_idx],
+                 model_list=model_list
+             )
++            _record_meta_op(meta_model, "crossover", _b_meta)
+             action_type = 'crossover'
++            cand_parents = [all_labels[parent1_idx], all_labels[parent2_idx]]
+             offspring_path = temp_dir / f"step{step}_crossover.yaml"
+ 
+         # Save and evaluate offspring
+@@ -716,6 +779,13 @@
+         all_configs.append(offspring_config)
+         all_stats.append(offspring_stats)
+         all_rewards.append(offspring_reward)
++        cand_label = f"step{step}_{action_type}"
++        all_labels.append(cand_label)
++        dump_candidate(output_dir, cand_label, offspring_config, {
++            "op": action_type, "step": step, "parents": cand_parents,
++            "reward": offspring_reward, "accuracy": offspring_stats.get("accuracy"),
++            "improved": offspring_reward > best_reward,
++        })
+ 
+         # Record operation
+         evolution_operations.append({
+@@ -733,9 +803,11 @@
+             best_config = offspring_config
+             best_stats = offspring_stats
+             best_reward = offspring_reward
++            best_label = cand_label
+             logger.info(f"New best reward: {best_reward:.4f}")
+ 
+         # Memory update - record experience for cross-query transfer
++        _b_meta = _meta_usage_snapshot(meta_model)
+         meta_model.update_memory(
+             action_type=action_type,
+             query=task_query,
+@@ -744,6 +816,7 @@
+             old_accuracy=old_best_accuracy,
+             new_accuracy=offspring_stats.get('accuracy', 0)
+         )
++        _record_meta_op(meta_model, "memory", _b_meta)
+ 
+     # ========================================================================
+     # STEP 4: SELECT BEST - argmax R(C, q)
+@@ -756,6 +829,7 @@
+     final_config = all_configs[best_idx]
+     final_stats = all_stats[best_idx]
+     final_reward = all_rewards[best_idx]
++    dump_candidate(output_dir, all_labels[best_idx], None, {"is_final_best": True})
+ 
+     logger.info(f"Best configuration found at index {best_idx}")
+     logger.info(f"Final Accuracy: {fmt_acc(final_stats.get('accuracy', 0))}")
+@@ -790,8 +864,9 @@
+ 
+     # Compute parent rewards for comparison
+     parent_stats_list = []
+-    for parent_path in parent_paths:
++    for parent_recheck_idx, parent_path in enumerate(parent_paths):
+         logger.info(f"Evaluating parent: {Path(parent_path).name}")
++        COST_LEDGER.set_context(step="pool_recheck", config=f"parent_recheck_{parent_recheck_idx}")
+         parent_result = interpret_mas(
+             config_path=parent_path,
+             dataset_name=dataset_name,
+@@ -856,6 +931,7 @@
+     # Use dataset-specific evaluator (ground-truth) for final accuracy/solved-rate,
+     # not the LLM-as-judge used during evolution for reward signals.
+     logger.info("Running final evaluation (dataset evaluator)...")
++    COST_LEDGER.set_context(step="final", config="final_selected")
+     final_result = interpret_mas(
+         config_path=str(final_config_path),
+         dataset_name=dataset_name,
+@@ -899,6 +975,15 @@
+ 
+     output_location = f"{output_dir}/{dataset_name}/evomas/"
+     logger.info(f"Results saved to: {output_location}")
++
++    # --- additive: persist the cost breakdown for this batch/run ---
++    try:
++        cb_path = COST_LEDGER.dump(str(Path(output_dir) / "cost_breakdown.json"))
++        _tot = COST_LEDGER.summary()["totals"]
++        logger.info(f"Cost breakdown -> {cb_path}")
++        logger.info(f"  LLM calls={_tot['calls']}, tokens={_tot['total_tokens']:,}, cost=${_tot['cost_usd']:.4f}")
++    except Exception as _e:
++        logger.warning(f"cost breakdown dump failed: {_e}")
+     logger.info("=" * 80)
+ 
+     return {
+--- a/src/agents/runners/smolagents.py
++++ b/src/agents/runners/smolagents.py
+@@ -3,6 +3,7 @@
+ """
+ 
+ import logging
++import os
+ import re
+ import subprocess
+ from typing import Any, Dict, Optional
+@@ -10,6 +11,7 @@
+ 
+ from ..spec import AgentSpec, AgentResult
+ from .base import BaseAgentRunner
++from src.models.worker_policy import validate_model_role, validate_worker_instance
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -18,6 +20,19 @@
+ # Need to go up 3 levels to src/, then into prompts/templates/workbench
+ WORKBENCH_PROMPT_PATH = Path(__file__).parent.parent.parent / "prompts" / "templates" / "workbench"
+ 
++
++def _runtime_limits(spec: AgentSpec) -> tuple[int, int]:
++    """Resolve optional experiment-wide CodeAgent limits.
++
++    The overrides are enforced at construction time so generated or mutated
++    YAML cannot silently widen a matched-budget experiment.
++    """
++    max_steps = int(os.environ.get("EVOMAS_AGENT_MAX_STEPS", "20"))
++    max_tokens = int(os.environ.get("EVOMAS_AGENT_MAX_TOKENS", str(spec.max_tokens)))
++    if max_steps < 1 or max_tokens < 1:
++        raise ValueError("EvoMAS agent step/token limits must be positive")
++    return max_steps, max_tokens
++
+ try:
+     from smolagents import CodeAgent, ToolCallingAgent
+     SMOLAGENTS_AVAILABLE = True
+@@ -74,6 +89,7 @@
+         Returns:
+             smolagents agent instance (CodeAgent or ToolCallingAgent)
+         """
++        validate_model_role(spec.model_id, role=spec.agent_type)
+         if not SMOLAGENTS_AVAILABLE:
+             raise ImportError("smolagents is not available")
+ 
+@@ -81,8 +97,9 @@
+         from src.models import get_model
+ 
+         # Prepare model parameters
++        max_steps, max_tokens = _runtime_limits(spec)
+         model_params = {
+-            "max_tokens": spec.max_tokens,
++            "max_tokens": max_tokens,
+             "temperature": spec.temperature
+         }
+ 
+@@ -92,7 +109,8 @@
+             logger.info(f"Using device: {spec.device} for model {spec.model_id}")
+ 
+         # Load the model
+-        model = get_model(spec.model_id, **model_params)
++        model = get_model(spec.model_id, role=spec.agent_type, **model_params)
++        validate_worker_instance(spec.model_id, model)
+ 
+         # Determine agent class
+         agent_class = CodeAgent
+@@ -108,7 +126,8 @@
+         agent = agent_class(
+             tools=spec.tools if spec.tools else [],
+             model=model.smolagents_model,
+-            additional_authorized_imports=["src.models", "src.tools"]
++            additional_authorized_imports=["src.models", "src.tools"],
++            max_steps=max_steps,
+         )
+ 
+         logger.info(f"Created {spec.agent_type} for agent {spec.id}")
+@@ -125,6 +144,7 @@
+         Returns:
+             AgentResult with execution outcome
+         """
++        validate_model_role(spec.model_id, role=spec.agent_type)
+         # Check if this is a SWE-bench task
+         repo_path = self._extract_repo_path(task)
+         is_swebench = repo_path is not None and repo_path.exists()
+@@ -139,8 +159,9 @@
+             from src.models import get_model
+ 
+             # Prepare model parameters
++            max_steps, max_tokens = _runtime_limits(spec)
+             model_params = {
+-                "max_tokens": spec.max_tokens,
++                "max_tokens": max_tokens,
+                 "temperature": spec.temperature
+             }
+ 
+@@ -150,7 +171,8 @@
+                 logger.info(f"Using device: {spec.device} for model {spec.model_id}")
+ 
+             # Load the model
+-            model = get_model(spec.model_id, **model_params)
++            model = get_model(spec.model_id, role=spec.agent_type, **model_params)
++            validate_worker_instance(spec.model_id, model)
+ 
+             # Create the agent (CodeAgent or ToolCallingAgent)
+             agent_class = CodeAgent
+@@ -302,6 +324,10 @@
+                         tools_to_use.extend(get_all_crm_tools())
+                         tools_to_use.extend(get_all_company_directory_tools())
+                         logger.info(f"Loaded all {len(tools_to_use)} WorkBench tools for multi-domain agent {spec.id}")
++                    elif tool_spec == "hotpot_fullwiki":
++                        from src.tools.hotpot_fullwiki import get_hotpot_tools
++                        tools_to_use.extend(get_hotpot_tools(task))
++                        logger.info("Loaded task-scoped HotpotQA FullWiki retrieval for agent %s", spec.id)
+                     else:
+                         # Regular tool - would be loaded normally
+                         pass
+@@ -310,7 +336,8 @@
+             agent = agent_class(
+                 tools=tools_to_use,
+                 model=model.smolagents_model,
+-                additional_authorized_imports=["src.models", "src.tools", "src.data_generation", "json"]
++                additional_authorized_imports=["src.models", "src.tools", "src.data_generation", "json"],
++                max_steps=max_steps,
+             )
+ 
+             # Build full prompt with context
+@@ -323,6 +350,13 @@
+                 if workbench_instructions:
+                     full_prompt = workbench_instructions + "\n\n" + full_prompt
+ 
++            if "hotpot_fullwiki" in (spec.tools or []):
++                full_prompt = (
++                    "Use hotpot_search for source-grounded evidence. Preserve exact article titles "
++                    "and sentence_id values in the final supporting_facts list. Never invent a citation.\n\n"
++                    + full_prompt
++                )
++
+             if context and context.get('reports'):
+                 full_prompt += "\n\nContext from other agents:\n"
+                 for agent_id, report in context['reports'].items():
+@@ -330,6 +364,11 @@
+ 
+             # Use agent.run() method (NOT direct model call)
+             logger.info(f"Running {spec.agent_type} {spec.id} with model {spec.model_id}")
++            try:
++                from src.utils.cost_ledger import LEDGER
++                LEDGER.set_context(agent_id=spec.id, agent_role=spec.role)
++            except Exception:
++                pass
+ 
+             # CodeAgent.run() returns the final answer string
+             content = agent.run(full_prompt)
+--- a/src/dataset/llm_as_judge.py
++++ b/src/dataset/llm_as_judge.py
+@@ -269,6 +269,7 @@
+         try:
+             self.model = get_model(
+                 model_id=model_id,
++                role="judge",
+                 temperature=temperature,
+                 max_tokens=max_tokens
+             )
+@@ -309,6 +310,7 @@
+ 
+         try:
+             import asyncio
++            _u0 = self.model.get_cumulative_token_usage() if hasattr(self.model, "get_cumulative_token_usage") else None
+             if asyncio.iscoroutinefunction(self.model.__call__):
+                 try:
+                     loop = asyncio.get_event_loop()
+@@ -322,6 +324,17 @@
+             if not isinstance(response, str):
+                 response = str(response)
+ 
++            # --- additive: record judge LLM cost (no effect on the score) ---
++            try:
++                from src.utils.cost_ledger import LEDGER
++                if _u0 is not None:
++                    _u1 = self.model.get_cumulative_token_usage()
++                    LEDGER.record(phase="judge", role="judge", model_id=self.model_id,
++                                  input_tokens=_u1.get("input_tokens", 0) - _u0.get("input_tokens", 0),
++                                  output_tokens=_u1.get("output_tokens", 0) - _u0.get("output_tokens", 0))
++            except Exception:
++                pass
++
+             scores = self._parse_scores(response)
+             if scores is None:
+                 logger.warning(f"Could not parse judge scores: {response[:300]}")
+--- a/src/mas/runtime.py
++++ b/src/mas/runtime.py
+@@ -142,6 +142,26 @@
+         # Aggregate metadata from all executed agents
+         metadata = self._aggregate_metadata_from_context(context)
+ 
++        # Additive measurement only: persist per-agent usage and the final report.
++        try:
++            from src.utils.cost_ledger import LEDGER, save_trajectory
++            ctx = LEDGER.context()
++            if ctx.get("traj_root"):
++                save_trajectory(
++                    ctx["traj_root"],
++                    str(ctx.get("task_id", "task")),
++                    str(ctx.get("config", self.mas_spec.name)),
++                    context.trace,
++                    reports=context.reports,
++                    extra={
++                        "step": ctx.get("step"),
++                        "mas_name": self.mas_spec.name,
++                        "final_result": final_result,
++                    },
++                )
++        except Exception as exc:
++            logger.warning(f"Measurement hook failed: {exc}")
++
+         logger.info("=" * 60)
+         logger.info(f"MAS Execution Completed: {self.mas_spec.name}")
+         logger.info("=" * 60)
+--- a/src/meta_model/mas_index.py
++++ b/src/meta_model/mas_index.py
+@@ -9,6 +9,9 @@
+ import json
+ import yaml
+ import logging
++import os
++import fcntl
++from contextlib import contextmanager
+ from pathlib import Path
+ from typing import Dict, Any, List, Optional
+ from datetime import datetime
+@@ -31,6 +34,7 @@
+     def __init__(self, pool_dir: str):
+         self.pool_dir = Path(pool_dir)
+         self.index_path = self.pool_dir / "mas_index.json"
++        self.lock_path = self.pool_dir / ".mas_index.lock"
+         self.index: Dict[str, Dict[str, Any]] = {}
+         self._load()
+ 
+@@ -126,8 +130,24 @@
+ 
+     def save(self):
+         """Persist index to disk."""
+-        with open(self.index_path, 'w') as f:
++        tmp = self.index_path.with_name(f"{self.index_path.name}.{os.getpid()}.tmp")
++        with open(tmp, 'w') as f:
+             json.dump(self.index, f, indent=2, ensure_ascii=False)
++        os.replace(tmp, self.index_path)
++
++    @contextmanager
++    def _mutation_lock(self):
++        """Serialize cross-process read-modify-write index updates."""
++        self.pool_dir.mkdir(parents=True, exist_ok=True)
++        with open(self.lock_path, "a+") as lock_file:
++            fcntl.flock(lock_file.fileno(), fcntl.LOCK_EX)
++            try:
++                if self.index_path.exists():
++                    with open(self.index_path, "r") as f:
++                        self.index = json.load(f)
++                yield
++            finally:
++                fcntl.flock(lock_file.fileno(), fcntl.LOCK_UN)
+ 
+     def record_query_result(
+         self,
+@@ -140,37 +160,37 @@
+         is_winner: bool = False
+     ):
+         """Record the result of running a config on a query."""
+-        if config_name not in self.index:
+-            logger.warning(f"Config {config_name} not in index, skipping record")
+-            return
+-
+-        entry = self.index[config_name]
+-        entry["total_queries"] += 1
+-        if is_winner:
+-            entry["total_wins"] += 1
+-
+-        # Update running averages
+-        n = entry["total_queries"]
+-        entry["avg_accuracy"] = ((n - 1) * entry["avg_accuracy"] + accuracy) / n
+-        entry["avg_tokens"] = int(((n - 1) * entry["avg_tokens"] + tokens) / n)
+-        entry["avg_time_seconds"] = ((n - 1) * entry["avg_time_seconds"] + time_seconds) / n
+-
+-        # Record solved task (keep last 20 to avoid bloat)
+-        if accuracy > 0:
+-            entry["solved_tasks"].append({
+-                "task_id": str(task_id),
+-                "query": query_snippet[:150],
+-                "accuracy": accuracy,
+-                "timestamp": datetime.now().isoformat()
+-            })
+-            entry["solved_tasks"] = entry["solved_tasks"][-20:]
++        with self._mutation_lock():
++            if config_name not in self.index:
++                logger.warning(f"Config {config_name} not in index, skipping record")
++                return
++
++            entry = self.index[config_name]
++            entry["total_queries"] += 1
++            if is_winner:
++                entry["total_wins"] += 1
++
++            n = entry["total_queries"]
++            entry["avg_accuracy"] = ((n - 1) * entry["avg_accuracy"] + accuracy) / n
++            entry["avg_tokens"] = int(((n - 1) * entry["avg_tokens"] + tokens) / n)
++            entry["avg_time_seconds"] = ((n - 1) * entry["avg_time_seconds"] + time_seconds) / n
++
++            if accuracy > 0:
++                entry["solved_tasks"].append({
++                    "task_id": str(task_id),
++                    "query": query_snippet[:150],
++                    "accuracy": accuracy,
++                    "timestamp": datetime.now().isoformat()
++                })
++                entry["solved_tasks"] = entry["solved_tasks"][-20:]
+ 
+-        self.save()
++            self.save()
+ 
+     def add_config(self, config_path: str):
+         """Add a newly evolved config to the index."""
+-        self._index_config(Path(config_path))
+-        self.save()
++        with self._mutation_lock():
++            self._index_config(Path(config_path))
++            self.save()
+ 
+     def get_selection_context(self, max_configs: int = 20) -> str:
+         """
+--- a/src/meta_model/metamodel.py
++++ b/src/meta_model/metamodel.py
+@@ -15,6 +15,7 @@
+ from datetime import datetime
+ 
+ from src.models.model import get_model
++from src.models.worker_policy import validate_worker_palette
+ from src.prompts.registry import PromptRegistry
+ from src.prompts.render import render_prompt
+ from src.mas.interpreter import interpret_mas
+@@ -62,6 +63,40 @@
+     return response.strip()
+ 
+ 
++def enforce_single_model(config_str: str, model_list: Optional[List[str]]) -> str:
++    """Enforce an explicitly singleton worker palette without changing structure."""
++    validate_worker_palette(model_list)
++    if not model_list or len(model_list) != 1:
++        return config_str
++    try:
++        config = yaml.safe_load(config_str)
++        if not isinstance(config, dict) or not isinstance(config.get("agents"), dict):
++            return config_str
++        for agent in config["agents"].values():
++            if isinstance(agent, dict):
++                agent["model_id"] = model_list[0]
++        return yaml.safe_dump(config, sort_keys=False)
++    except Exception:
++        return config_str
++
++
++def uses_only_models(config_str: str, model_list: Optional[List[str]]) -> bool:
++    """Return whether every generated agent uses the declared worker palette."""
++    try:
++        validate_worker_palette(model_list)
++        config = yaml.safe_load(config_str)
++        agents = config.get("agents") if isinstance(config, dict) else None
++        if not isinstance(agents, dict) or not agents:
++            return False
++        allowed = set(model_list)
++        return all(
++            isinstance(agent, dict) and agent.get("model_id") in allowed
++            for agent in agents.values()
++        )
++    except Exception:
++        return False
++
++
+ def validate_mas_config(config_str: str) -> bool:
+     """
+     Validate that a string is valid MAS YAML configuration.
+@@ -136,6 +171,7 @@
+         # Load meta model
+         self.model = get_model(
+             model_id=model_id,
++            role="meta",
+             temperature=temperature,
+             max_tokens=max_tokens
+         )
+@@ -403,10 +439,11 @@
+ 
+             # Extract YAML from response
+             generated_config = extract_yaml_from_response(response)
++            generated_config = enforce_single_model(generated_config, model_list)
+ 
+             # Validate generated config
+-            if not validate_mas_config(generated_config):
+-                logger.warning("Generated config validation failed, falling back to original")
++            if not validate_mas_config(generated_config) or not uses_only_models(generated_config, model_list):
++                logger.warning("Generated config or model palette validation failed, falling back to original")
+                 return mas_config
+ 
+             logger.info("Successfully generated new MAS configuration")
+@@ -490,10 +527,11 @@
+ 
+             # Extract YAML from response
+             mutated_config = extract_yaml_from_response(response)
++            mutated_config = enforce_single_model(mutated_config, model_list)
+ 
+             # Validate mutated config
+-            if not validate_mas_config(mutated_config):
+-                logger.warning("Mutated config validation failed, falling back to original")
++            if not validate_mas_config(mutated_config) or not uses_only_models(mutated_config, model_list):
++                logger.warning("Mutated config or model palette validation failed, falling back to original")
+                 return mas_config
+ 
+             logger.info("Successfully mutated MAS configuration")
+@@ -593,10 +631,11 @@
+ 
+             # Extract YAML from response
+             offspring_config = extract_yaml_from_response(response)
++            offspring_config = enforce_single_model(offspring_config, model_list)
+ 
+             # Validate offspring config
+-            if not validate_mas_config(offspring_config):
+-                logger.warning("Offspring config validation failed, returning better parent")
++            if not validate_mas_config(offspring_config) or not uses_only_models(offspring_config, model_list):
++                logger.warning("Offspring config or model palette validation failed, returning better parent")
+                 return mas_config_1 if acc_1 >= acc_2 else mas_config_2
+ 
+             logger.info("Successfully generated offspring MAS configuration")
+--- a/src/meta_model/pool.py
++++ b/src/meta_model/pool.py
+@@ -10,6 +10,7 @@
+ import yaml
+ import shutil
+ import logging
++import os
+ from pathlib import Path
+ from typing import Dict, Any, Optional
+ from datetime import datetime
+@@ -258,8 +259,8 @@
+         return None
+ 
+     # Generate name and description
+-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+-    name = f"evolved_{timestamp}"
++    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
++    name = f"evolved_{timestamp}_{os.getpid()}"
+     description = f"Evolved configuration with reward {new_reward:.4f}"
+ 
+     # Add successful task info
+--- a/src/models/model.py
++++ b/src/models/model.py
+@@ -4,6 +4,8 @@
+ import logging
+ import json
+ import yaml
++from inherit_mas.release_config import load_env
++from src.models.worker_policy import PRIVILEGED_ROLES, validate_model_role, worker_family
+ 
+-load_dotenv()
++load_env()
+ logger = logging.getLogger(__name__)
+@@ -483,13 +484,20 @@
+         max_tokens: int = 4096,
+         temperature: float = 0.7,
+         top_p: float = 1.0,
++        base_url: Optional[str] = None,
++        role: str = "worker",
+         **kwargs
+     ):
++        validate_model_role(model, role=role)
+         self.model = model
++        self.role = role
++        self._logical_model = model
+         self.max_tokens = max_tokens
+         self.temperature = temperature
+         self.top_p = top_p
+         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
++        self.base_url = base_url or os.environ.get("OPENAI_BASE_URL")
++        self._use_completion_tokens = model.startswith(("gpt-5", "o1", "o3"))
+ 
+         # Token usage tracking (cumulative across all calls)
+         self._cumulative_input_tokens = 0
+@@ -503,7 +511,10 @@
+         try:
+             import openai
+             self.openai = openai
+-            self.client = openai.OpenAI(api_key=self.api_key, max_retries=10, timeout=120.0)
++            client_kwargs = dict(api_key=self.api_key, max_retries=10, timeout=180.0)
++            if self.base_url:
++                client_kwargs["base_url"] = self.base_url
++            self.client = openai.OpenAI(**client_kwargs)
+             logger.info(f"Initialized OpenAI model: {model}")
+         except ImportError:
+             raise ImportError("openai library is required for OpenAI models. Install with: pip install openai")
+@@ -574,14 +585,20 @@
+ 
+     def _call_openai_api(self, messages: List[Dict[str, str]]) -> str:
+         """Call the OpenAI API"""
++        validate_model_role(getattr(self, "_logical_model", self.model),
++                            role=getattr(self, "role", "worker"), resolved_model=self.model)
+         try:
+-            response = self.client.chat.completions.create(
++            request = dict(
+                 model=self.model,
+                 messages=messages,
+-                max_tokens=self.max_tokens,
+                 temperature=self.temperature,
+                 top_p=self.top_p
+             )
++            if self._use_completion_tokens:
++                request["max_completion_tokens"] = self.max_tokens
++            else:
++                request["max_tokens"] = self.max_tokens
++            response = self.client.chat.completions.create(**request)
+ 
+             # Store token usage for this call
+             self._last_input_tokens = response.usage.prompt_tokens
+@@ -591,6 +608,20 @@
+             self._cumulative_input_tokens += response.usage.prompt_tokens
+             self._cumulative_output_tokens += response.usage.completion_tokens
+ 
++            if getattr(self, "role", "worker") not in PRIVILEGED_ROLES:
++                from src.utils.cost_ledger import LEDGER
++                ctx = LEDGER.context()
++                LEDGER.record(
++                    phase="worker", role=ctx.get("agent_role") or "worker",
++                    model_id=f"openai:{self.model}",
++                    input_tokens=self._last_input_tokens,
++                    output_tokens=self._last_output_tokens,
++                    agent_id=ctx.get("agent_id"),
++                    cost_usd=0.0 if worker_family(self.model) == "qwen3-32b" else None,
++                    provider_model=self.model,
++                    provider_response_model=getattr(response, "model", None),
++                )
++
+             # Handle reasoning tokens for models like o1
+             if hasattr(response.usage, 'completion_tokens_details'):
+                 details = response.usage.completion_tokens_details
+@@ -933,9 +964,13 @@
+         max_tokens: int = 4096,
+         temperature: float = 0.7,
+         top_p: float = 1.0,
++        role: str = "worker",
+         **kwargs
+     ):
++        validate_model_role(model, role=role)
+         self.model = model
++        self.role = role
++        self._logical_model = model
+         self.max_tokens = max_tokens
+         self.temperature = temperature
+         self.top_p = top_p
+@@ -967,6 +1002,12 @@
+             ep_name = "AZURE_Anthropic_ENDPOINT" if is_claude else "AZURE_OPENAI_ENDPOINT"
+             raise ValueError(f"{ep_name} not found in environment variables or parameters")
+ 
++        self.endpoint = self.endpoint.rstrip("/")
++        for suffix in ("/openai/v1", "/openai"):
++            if self.endpoint.endswith(suffix):
++                self.endpoint = self.endpoint[:-len(suffix)]
++                break
++
+         self._is_claude = is_claude
+         if is_claude:
+             # Claude on Azure uses the Anthropic REST API path
+@@ -1035,6 +1076,8 @@
+         return MockSmolagentsModel(self)
+ 
+     def _call_api(self, messages: List[Dict[str, str]]) -> str:
++        validate_model_role(getattr(self, "_logical_model", self.model),
++                            role=getattr(self, "role", "worker"), resolved_model=self.model)
+         if self._is_claude:
+             return self._call_anthropic_api(messages)
+         return self._call_openai_api(messages)
+@@ -1082,6 +1125,8 @@
+ 
+     def _call_openai_api(self, messages: List[Dict[str, str]]) -> str:
+         """Call OpenAI models on Azure via the OpenAI SDK."""
++        validate_model_role(getattr(self, "_logical_model", self.model),
++                            role=getattr(self, "role", "worker"), resolved_model=self.model)
+         try:
+             params = {
+                 "model": self.model,
+@@ -1099,6 +1144,19 @@
+             self._last_output_tokens = response.usage.completion_tokens
+             self._cumulative_input_tokens += response.usage.prompt_tokens
+             self._cumulative_output_tokens += response.usage.completion_tokens
++            if "gpt-4o-mini" in self.model:
++                try:
++                    from src.utils.cost_ledger import LEDGER
++                    ctx = LEDGER.context()
++                    LEDGER.record(
++                        phase="worker", role=ctx.get("agent_role") or "worker",
++                        model_id=f"azure:{self.model}",
++                        input_tokens=self._last_input_tokens,
++                        output_tokens=self._last_output_tokens,
++                        agent_id=ctx.get("agent_id"),
++                    )
++                except Exception:
++                    pass
+             return response.choices[0].message.content
+         except Exception as e:
+             logger.error(f"Error calling Azure OpenAI API: {e}")
+@@ -1270,7 +1328,7 @@
+         return self.smolagents_model.generate(messages, **kwargs)
+ 
+ 
+-def get_model(model_id: str, **kwargs) -> Union[BedrockSmolagentsModel, OpenAIModel, AnthropicAPIModel, AzureOpenAIModel, GoogleGeminiModel]:
++def get_model(model_id: str, *, role: str = "worker", **kwargs) -> Union[BedrockSmolagentsModel, OpenAIModel, AnthropicAPIModel, AzureOpenAIModel, GoogleGeminiModel]:
+     """Get model instance for smolagents.
+ 
+     Args:
+@@ -1292,6 +1350,7 @@
+         model = get_model("google:gemini-2.5-flash", temperature=0.7, max_tokens=4096)
+         model = get_model("anthropic:claude-sonnet-4-20250514", temperature=0.7)
+     """
++    validate_model_role(model_id, role=role)
+     if ":" not in model_id:
+         raise ValueError(f"Invalid model_id: {model_id}. Format: provider:model_name")
+ 
+@@ -1302,15 +1361,27 @@
+ 
+     elif provider == "openai":
+         logger.info(f"Creating OpenAI model: {model_name}")
+-        return OpenAIModel(model=model_name, **kwargs)
++        return OpenAIModel(model=model_name, role=role, **kwargs)
+ 
+     elif provider == "anthropic":
+         logger.info(f"Creating Anthropic API model: {model_name}")
+         return AnthropicAPIModel(model=model_name, **kwargs)
+ 
+     elif provider == "azure":
++        if "gpt-5.4-mini" in model_name:
++            logger.info(f"Creating Azure OpenAI-compatible model: {model_name}")
++            kwargs.setdefault("api_key", os.environ.get("AZURE_OPENAI_5_4_MINI_API_KEY"))
++            endpoint = os.environ.get("AZURE_OPENAI_5_4_MINI_ENDPOINT")
++            if not endpoint:
++                raise ValueError(
++                    "AZURE_OPENAI_5_4_MINI_ENDPOINT is not set. Point it at your own "
++                    "OpenAI-compatible endpoint for the gpt-5.4-mini meta/judge model, "
++                    "e.g. https://<your-resource>/openai/v1"
++                )
++            kwargs.setdefault("base_url", endpoint)
++            return OpenAIModel(model=model_name, role=role, **kwargs)
+         logger.info(f"Creating Azure OpenAI model: {model_name}")
+-        return AzureOpenAIModel(model=model_name, **kwargs)
++        return AzureOpenAIModel(model=model_name, role=role, **kwargs)
+ 
+     elif provider == "google":
+         logger.info(f"Creating Google Gemini model: {model_name}")
+--- a/src/utils/mas_runner.py
++++ b/src/utils/mas_runner.py
+@@ -501,9 +501,13 @@
+         # Use LLM-as-Judge when configured (evolution reward signal)
+         if self.llm_as_judge:
+             from src.dataset.llm_as_judge import LLMAsJudgeEvaluator
++            # Reasoning judges (nemotron) spend completion budget on thinking;
++            # default 1024 can truncate the scores. Env-overridable.
++            _judge_max_tokens = int(os.environ.get("EVOMAS_JUDGE_MAX_TOKENS", "1024"))
+             self._evaluator = LLMAsJudgeEvaluator(
+                 model_id=self.llm_as_judge,
+-                dataset_name=self.dataset_name
++                dataset_name=self.dataset_name,
++                max_tokens=_judge_max_tokens
+             )
+             if self.verbose:
+                 logger.info(f"Using LLM-as-Judge evaluator ({self.llm_as_judge}) for {self.dataset_name}")
+@@ -1007,6 +1011,21 @@
+                 error.partial_metadata = partial_metadata
+                 raise error
+ 
++    def _isolated_workbench_process(self) -> bool:
++        """Return whether an outer process owns this WorkBench task lifetime."""
++        return (
++            'workbench' in self.dataset_name.lower()
++            and os.environ.get("EVOMAS_ISOLATED_WORKBENCH_PROCESS") == "1"
++        )
++
++    def _run_runtime(self, task_query: str) -> Tuple[str, Dict[str, Any]]:
++        """Run once, avoiding non-cancellable thread timeouts in isolated tasks."""
++        if self._isolated_workbench_process():
++            return self._runtime.run(task_query)
++        if self.task_timeout and self.task_timeout > 0:
++            return self._run_with_timeout(task_query, self.task_timeout)
++        return self._runtime.run(task_query)
++
+     def _get_partial_metadata_on_timeout(self) -> Dict[str, Any]:
+         """
+         Try to extract partial metadata from runtime when timeout occurs.
+@@ -1121,7 +1140,10 @@
+         try:
+             # For WorkBench, acquire per-domain locks so concurrent tasks on the
+             # same domain serialize on the shared in-memory/CSV state.
+-            if 'workbench' in self.dataset_name.lower():
++            if (
++                'workbench' in self.dataset_name.lower()
++                and not self._isolated_workbench_process()
++            ):
+                 wb_lock = WorkbenchDomainLock(self.dataset_name)
+                 if wb_lock.domains and not wb_lock.acquire(timeout=600):
+                     raise RuntimeError(
+@@ -1200,12 +1222,17 @@
+                 else:
+                     logger.warning(f"Repository path not found for SWE-bench instance {task.id}")
+ 
++            # additive: tag cost/trajectory records with this task id
++            try:
++                from src.utils.cost_ledger import LEDGER as _LEDGER
++                _LEDGER.set_context(task_id=str(task.id))
++            except Exception:
++                pass
++
+             # Run MAS with timeout - returns tuple of (result, metadata)
+-            if self.task_timeout and self.task_timeout > 0:
++            if self.task_timeout and self.task_timeout > 0 and not self._isolated_workbench_process():
+                 logger.info(f"Running task with {self.task_timeout:.0f}s timeout...")
+-                result, metadata = self._run_with_timeout(task_query, self.task_timeout)
+-            else:
+-                result, metadata = self._runtime.run(task_query)
++            result, metadata = self._run_runtime(task_query)
+ 
+             if self.verbose:
+                 logger.info(f"\nResult: {result[:200]}...")
+@@ -1372,7 +1399,10 @@
+                 # For WorkBench, acquire per-domain locks BEFORE resetting state
+                 # or running the task so concurrent workers on the same domain
+                 # cannot race on the shared module globals / data.csv.
+-                if 'workbench' in self.dataset_name.lower():
++                if (
++                    'workbench' in self.dataset_name.lower()
++                    and not self._isolated_workbench_process()
++                ):
+                     wb_lock = WorkbenchDomainLock(self.dataset_name)
+                     if wb_lock.domains and not wb_lock.acquire(timeout=600):
+                         raise RuntimeError(
+@@ -1445,11 +1475,15 @@
+                         if repo_path:
+                             logger.warning(f"Repository path not found for SWE-bench instance {task.id}: {repo_path}")
+ 
++                # additive: tag cost/trajectory records with this task id
++                try:
++                    from src.utils.cost_ledger import LEDGER as _LEDGER
++                    _LEDGER.set_context(task_id=str(task.id))
++                except Exception:
++                    pass
++
+                 # Run MAS with timeout - returns (result, metadata)
+-                if self.task_timeout and self.task_timeout > 0:
+-                    result, metadata = self._run_with_timeout(task_query, self.task_timeout)
+-                else:
+-                    result, metadata = self._runtime.run(task_query)
++                result, metadata = self._run_runtime(task_query)
+ 
+                 # Calculate execution time
+                 execution_time = time.time() - start_time
