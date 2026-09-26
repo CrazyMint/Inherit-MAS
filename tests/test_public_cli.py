@@ -167,13 +167,20 @@ def test_help_does_not_execute_or_write(tmp_path, monkeypatch, capsys, args):
     with pytest.raises(SystemExit) as exc:
         cli.main()
     assert exc.value.code == 0
-    assert "usage:" in capsys.readouterr().out
+    help_text = capsys.readouterr().out
+    assert "usage:" in help_text
+    if args == ["run", "--help"]:
+        assert "--task-concurrency" in help_text
+        assert "--workers" not in help_text
+        assert "not LLM agents per task" in " ".join(help_text.split())
     assert list(tmp_path.iterdir()) == []
 
 
 @pytest.mark.parametrize("benchmark", ["workbench", "hotpotqa"])
+@pytest.mark.parametrize("flags,expected_concurrency", [([], 1),
+    (["--task-concurrency", "3"], 3), (["--workers", "2"], 2)])
 def test_dry_run_validates_selection_without_runtime_or_writes(tmp_path, monkeypatch, capsys,
-                                                            benchmark):
+                                                            benchmark, flags, expected_concurrency):
     path = manifest_file(tmp_path, benchmark)
     out = tmp_path / "not-created"
     monkeypatch.setattr(cli, "bind_run", forbidden)
@@ -183,13 +190,70 @@ def test_dry_run_validates_selection_without_runtime_or_writes(tmp_path, monkeyp
     monkeypatch.setitem(sys.modules, "public_runner.workbench", fake_workbench)
     monkeypatch.setattr(sys, "argv", ["run.py", "run", benchmark, "--manifest", str(path),
                                     "--out", str(out), "--usd-cap", "1", "--limit", "1",
-                                    "--dry-run"])
+                                    "--dry-run", *flags])
     assert cli.main() == 0
     result = json.loads(capsys.readouterr().out)
     assert result["tasks"] == 1
     assert result["model_calls"] is False
+    assert result["task_concurrency"] == expected_concurrency
+    assert "workers" not in result
     assert not out.exists()
     assert list(tmp_path.iterdir()) == [path]
+
+
+@pytest.mark.parametrize("flags", [["--task-concurrency", "0"],
+    ["--task-concurrency", "-1"], ["--workers", "0"],
+    ["--task-concurrency", "2", "--workers", "3"]])
+def test_invalid_task_concurrency_rejected_before_loading(tmp_path, monkeypatch, capsys, flags):
+    monkeypatch.setattr(cli, "read_manifest", forbidden)
+    monkeypatch.setattr(sys, "argv", ["run.py", "run", "workbench", "--out", str(tmp_path),
+                                    "--usd-cap", "1", *flags])
+    with pytest.raises(SystemExit) as exc:
+        cli.main()
+    assert exc.value.code == 2
+    assert "--task-concurrency" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("method", cli.METHODS)
+@pytest.mark.parametrize("benchmark", ["workbench", "hotpotqa"])
+def test_task_concurrency_reaches_runner(tmp_path, monkeypatch, capsys, method, benchmark):
+    from public_runner import workbench
+
+    path = manifest_file(tmp_path, benchmark)
+    out = tmp_path / "run"
+    monkeypatch.setattr(cli, "bind_run", lambda *args: path)
+
+    def execute(manifest_path, output, *, workers, usd_cap, **kwargs):
+        assert (manifest_path, output, workers, usd_cap) == (path, out, 3, 1.0)
+        return {"status": "sealed"}
+
+    monkeypatch.setattr(cli, "baseline_runtime", lambda name: SimpleNamespace(run=execute))
+    monkeypatch.setattr(hotpot, "run", execute)
+    monkeypatch.setattr(workbench, "run", execute)
+    monkeypatch.setattr(sys, "argv", ["run.py", "run", benchmark, "--method", method,
+        "--manifest", str(path), "--out", str(out), "--usd-cap", "1", "--task-concurrency", "3"])
+    assert cli.main() == 0
+    assert json.loads(capsys.readouterr().out)["status"] == "sealed"
+
+
+@pytest.mark.parametrize("module_name", ["run_select_edit", "run_revision_v3"])
+@pytest.mark.parametrize("flags,expected_concurrency", [([], 4),
+    (["--task-concurrency", "3"], 3), (["--workers", "2"], 2)])
+def test_standalone_hotpot_task_concurrency(tmp_path, monkeypatch, capsys, module_name,
+                                          flags, expected_concurrency):
+    from importlib import import_module
+
+    module = import_module(f"hotpot_fullwiki.{module_name}")
+
+    def execute(manifest_path, output, *, workers, usd_cap):
+        assert workers == expected_concurrency
+        return {"status": "sealed"}
+
+    monkeypatch.setattr(module, "run", execute)
+    monkeypatch.setattr(sys, "argv", [module_name, "--manifest", str(tmp_path / "unused.json"),
+        "--out", str(tmp_path), "--usd-cap", "1", *flags])
+    module.main()
+    assert json.loads(capsys.readouterr().out)["status"] == "sealed"
 
 
 @pytest.mark.parametrize("method", cli.METHODS)

@@ -37,12 +37,12 @@ INHERIT_TACOMAS_PYTHON=/path/to/envs/inherit-tacomas/bin/python
 Run the public commands from the main `inherit-mas` environment:
 
 ```bash
-python run.py run workbench --method evomas --limit 3 --workers 1 --usd-cap 2 --out runs/evomas-workbench
-python run.py run workbench --method tacomas --limit 3 --workers 1 --usd-cap 2 --out runs/tacomas-workbench
-python run.py run hotpotqa --method tacomas --limit 3 --workers 1 --usd-cap 2 --out runs/tacomas-hotpotqa
+python run.py run workbench --method evomas --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/evomas-workbench
+python run.py run workbench --method tacomas --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/tacomas-workbench
+python run.py run hotpotqa --method tacomas --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/tacomas-hotpotqa
 ```
 
-EvoMAS on WorkBench and GPT-4o-mini HotpotQA requires `--workers 1`. For the latter, set `HOTPOT_BM25_URL=http://127.0.0.1:8765` in `.env` and start the BM25 service in another terminal, in the main environment:
+EvoMAS on WorkBench and GPT-4o-mini HotpotQA requires `--task-concurrency 1`. For the latter, set `HOTPOT_BM25_URL=http://127.0.0.1:8765` in `.env` and start the BM25 service in another terminal, in the main environment:
 
 ```bash
 python scripts/serve_bm25.py
@@ -51,7 +51,7 @@ python scripts/serve_bm25.py
 Then run:
 
 ```bash
-python run.py run hotpotqa --method evomas --limit 3 --workers 1 --usd-cap 2 --out runs/evomas-hotpotqa
+python run.py run hotpotqa --method evomas --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/evomas-hotpotqa
 ```
 
 EvoMAS with Qwen3-32B on HotpotQA needs only the main environment and does not require the BM25 service above.
@@ -75,8 +75,8 @@ INHERIT_QWEN_TOKENIZER_PATH=/path/to/Qwen3-32B
 Run from the main environment:
 
 ```bash
-python run.py run workbench --method inherit-mas --backbone qwen3-32b --limit 3 --workers 1 --usd-cap 2 --out runs/inherit-qwen-workbench
-python run.py run hotpotqa --method evoagent --backbone qwen3-32b --limit 3 --workers 1 --usd-cap 2 --out runs/evoagent-qwen-hotpotqa
+python run.py run workbench --method inherit-mas --backbone qwen3-32b --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/inherit-qwen-workbench
+python run.py run hotpotqa --method evoagent --backbone qwen3-32b --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/evoagent-qwen-hotpotqa
 ```
 
 Change `--method` to run the other baselines, completing any required setup above. Controller and judge API calls remain enabled where applicable. EvoAgent uses Qwen for every role and makes no external API calls. Run commands do not download model weights or start or stop GPU servers automatically.

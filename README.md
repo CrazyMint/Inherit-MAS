@@ -35,9 +35,11 @@ The CPU-based BM25 index downloads on first use. Retrieval dependencies and the 
 ## Run
 
 ```bash
-python run.py run workbench --limit 3 --workers 1 --usd-cap 2 --out runs/workbench
-python run.py run hotpotqa --limit 3 --workers 1 --usd-cap 2 --out runs/hotpotqa
+python run.py run workbench --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/workbench
+python run.py run hotpotqa --limit 3 --task-concurrency 1 --usd-cap 2 --out runs/hotpotqa
 ```
+
+`--task-concurrency` sets the maximum number of benchmark tasks executed concurrently, not the number of LLM agents within a task.
 
 Use `--method` to select `inherit-mas` (default), `single-react`, `evoagent`, `evomas`, or `tacomas`. Use `--backbone gpt-4o-mini` (default) or `--backbone qwen3-32b`.
 

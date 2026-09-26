@@ -20,7 +20,11 @@ def main() -> int:
     online.add_argument("--out", type=Path, required=True)
     online.add_argument("--manifest", type=Path)
     online.add_argument("--limit", type=int, help="Run only the first N manifest tasks")
-    online.add_argument("--workers", type=int, default=1)
+    concurrency = online.add_mutually_exclusive_group()
+    concurrency.add_argument("--task-concurrency", type=int, default=1,
+                             help="Maximum benchmark tasks run concurrently, not LLM agents per task (default: 1)")
+    concurrency.add_argument("--workers", dest="task_concurrency", type=int,
+                             default=argparse.SUPPRESS, help=argparse.SUPPRESS)
     online.add_argument("--usd-cap", type=float, required=True, help="Estimated API budget; in-flight requests may exceed it")
     online.add_argument("--dry-run", action="store_true", help="Validate task selection without model calls or writes")
     offline = commands.add_parser("score", help="Write official scores for a completed run; no model calls")
@@ -28,8 +32,8 @@ def main() -> int:
     args = parser.parse_args()
     out = args.out.expanduser().resolve()
     if args.command == "run":
-        if args.workers < 1 or args.usd_cap <= 0 or not math.isfinite(args.usd_cap):
-            parser.error("--workers and --usd-cap must be positive; --usd-cap must be finite")
+        if args.task_concurrency < 1 or args.usd_cap <= 0 or not math.isfinite(args.usd_cap):
+            parser.error("--task-concurrency and --usd-cap must be positive; --usd-cap must be finite")
         if args.limit is not None and args.limit < 1:
             parser.error("--limit must be positive")
         path = args.manifest or ROOT / "data" / f"{args.benchmark}.json"
@@ -37,7 +41,7 @@ def main() -> int:
         if args.dry_run:
             print(json.dumps({"benchmark": args.benchmark, "tasks": manifest["n"],
                               "method": args.method, "backbone": args.backbone,
-                              "workers": args.workers, "usd_cap": args.usd_cap,
+                              "task_concurrency": args.task_concurrency, "usd_cap": args.usd_cap,
                               "output": str(out), "model_calls": False}, indent=2))
             return 0
         method, backbone = args.method, args.backbone
@@ -70,7 +74,7 @@ def main() -> int:
     else:
         from public_runner import hotpot as runtime
     if args.command == "run":
-        kwargs = {"usd_cap": args.usd_cap, "workers": args.workers}
+        kwargs = {"usd_cap": args.usd_cap, "workers": args.task_concurrency}
         if method != "inherit-mas" or backbone != "gpt-4o-mini":
             kwargs["backbone"] = backbone
         value = runtime.run(path, out, **kwargs)

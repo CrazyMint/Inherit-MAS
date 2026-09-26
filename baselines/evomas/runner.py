@@ -33,7 +33,7 @@ def run(manifest_path, out, *, usd_cap, workers=1, backbone="gpt-4o-mini") -> di
                           backbone=backbone, method="evomas_adapted", controller=evomas)
     settings(benchmark, backbone)
     if workers != 1:
-        raise ValueError("native EvoMAS is one serial cross-task trajectory; --workers must be 1")
+        raise ValueError("native EvoMAS is one serial cross-task trajectory; --task-concurrency must be 1")
     read_manifest(manifest_path, benchmark)
     from .runtime_lock import verify
     verify(Path(__file__).parent / "upstream")

@@ -132,10 +132,16 @@ def main() -> None:
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--usd-cap", type=float, required=True)
-    parser.add_argument("--workers", type=int, default=4)
+    concurrency = parser.add_mutually_exclusive_group()
+    concurrency.add_argument("--task-concurrency", type=int, default=4,
+                             help="Maximum benchmark tasks run concurrently, not LLM agents per task (default: 4)")
+    concurrency.add_argument("--workers", dest="task_concurrency", type=int,
+                             default=argparse.SUPPRESS, help=argparse.SUPPRESS)
     args = parser.parse_args()
+    if args.task_concurrency < 1:
+        parser.error("--task-concurrency must be positive")
     print(json.dumps(run(args.manifest, args.out, usd_cap=args.usd_cap,
-                         workers=args.workers), indent=2))
+                         workers=args.task_concurrency), indent=2))
 
 
 if __name__ == "__main__":
