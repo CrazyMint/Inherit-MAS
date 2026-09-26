@@ -19,7 +19,7 @@
       "project_management": "5953f6a8ac714ecf6ad0ecf12df8aa986d8ac56b68f247e9781df2018c475057"
     }
   },
-  "manifest_digest": "735cb455aa9fdbbc1b4ce7819ef1e6e2c584f39f21fc005b911b8154d05afb68",
+  "manifest_digest": "21306716c8422837fd9744ccbf13649a6f8c90ff9ca8c7847487d5fac926b41a",
   "n": 130,
   "n_templates": 13,
   "selection": "all instances of all 13 pre-existing final templates; public fields only",
@@ -937,5 +937,5 @@
       "template_id": "568867564d55ba0394f8e0d22ee2e14c0db8ac9c1b06aeb8750f88d8e605abbf"
     }
   ],
-  "version": "meridian-paper-v1-manifests/1"
+  "version": "inherit-mas-paper-v1-manifests/1"
 }

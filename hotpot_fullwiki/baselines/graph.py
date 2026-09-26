@@ -1,6 +1,6 @@
 """A shared typed graph contract for adapted external baselines.
 
-This contract is intentionally separate from MERIDIAN's frozen graph module.
+This contract is intentionally separate from Inherit-MAS's frozen graph module.
 It supports TacoMAS's larger population while keeping the same HotpotQA role,
 port, retrieval, and single-output requirements for every compared method.
 """

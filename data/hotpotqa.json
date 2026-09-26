@@ -16,7 +16,7 @@
     "generalization_qualification_v3.json": "8cf68fbfbb8708683e784404753ad2cc01de7e5d7ed0cdb8ea107f111e319bf5",
     "powered_pool.json": "578eb4db2a40f326d1e19a51c12ef98a6b8200b8be85e17ff61588bce37d486c"
   },
-  "manifest_digest": "2906dbaea95460c38d037c8d7a605f77add5d5b92f551c612cfe618dde4a4cc5",
+  "manifest_digest": "7f3d2926fd69a024270238eb09f3f93dc635e29236113f56daff6cb7ed09c982",
   "n": 300,
   "rows": [
     {
@@ -2122,5 +2122,5 @@
   ],
   "selection": "public-metadata-only deterministic hash over train/adaptive_search; excludes every row in every earlier frozen HotpotQA manifest",
   "stage": "hotpotqa_fullwiki_final",
-  "version": "meridian-paper-v1-manifests/1"
+  "version": "inherit-mas-paper-v1-manifests/1"
 }

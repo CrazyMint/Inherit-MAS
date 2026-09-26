@@ -22,7 +22,7 @@ def allocated_search_limits(graph: dict) -> dict[str, int]:
 
 
 def execute_graph(graph: dict, example, *, models, retriever: BM25Retriever) -> ExecutionResult:
-    """Execute every node; external baselines receive no MERIDIAN reuse."""
+    """Execute every node; external baselines receive no Inherit-MAS execution inheritance."""
     validate_graph(graph)
     task = example.public()
     nodes = node_map(graph)
