@@ -80,7 +80,7 @@ _DOMAIN_ALIASES = {"crm": "customer_relationship_manager"}
 
 def normalize_domains(domains: list[str]) -> list[str]:
     """Normalize domain tags (notably ``crm`` -> ``customer_relationship_manager``),
-    dedupe, and keep a stable order. See BENCHMARK_NOTES.md §2."""
+    dedupe, and keep a stable order."""
     out: list[str] = []
     for d in domains:
         d = _DOMAIN_ALIASES.get(d, d)

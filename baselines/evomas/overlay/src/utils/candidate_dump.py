@@ -2,10 +2,8 @@
 
 Persists every candidate MAS config evaluated during evolution — adapted
 parents (GENERATE) and mutation/crossover offspring — plus a lineage manifest,
-under <output_dir>/candidates/. The offline replayer
-(scripts/dirty_set_replay.py) diffs parent->child YAMLs and joins per-node
-token counts from <output_dir>/trajectories/ to measure how much of a child
-rollout would need recomputation if clean nodes were served from a cache.
+under <output_dir>/candidates/ for offline comparison with per-node token
+counts from <output_dir>/trajectories/.
 
 Purely observational, same contract as cost_ledger: it does NOT feed the
 reward, selection, or any experimental decision, and every entry point
