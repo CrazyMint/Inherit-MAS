@@ -5,6 +5,36 @@
 
 Run Inherit-MAS and its baselines on WorkBench and HotpotQA FullWiki.
 
+## Method
+
+![Inherit-MAS overview: initial synthesis and execution, judgment, workflow inheritance through Select and Edit, request-verified execution inheritance, and final candidate ranking.](docs/assets/method.png)
+
+Workflow inheritance retains useful nodes of the latest completed candidate and applies one validated edit to the kept workflow. Execution inheritance reuses eligible stored results only when the complete resolved request and execution context match; all other nodes execute live. The figure shows the ordinary refinement path, omitting invalid attempts and synthesis fallbacks.
+
+## WorkBench Results
+
+Table 1 from the paper reports completion percentages by worker backbone and domain. Bold marks the best MAS result within each backbone, excluding the Single ReAct reference. Overall is the primary metric, computed across all 130 evaluation tasks rather than as an unweighted mean of domain scores.
+
+### GPT-4o-mini Workers
+
+| System | Analytics | Calendar | CRM | Email | Project mgmt. | Multi-domain | Overall |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Single ReAct (reference) | 35.0 | 50.0 | 20.0 | 35.0 | 20.0 | 60.0 | 41.5 |
+| EvoAgent | 55.0 | 40.0 | **20.0** | 25.0 | 20.0 | 35.0 | 33.8 |
+| EvoMAS | 25.0 | 35.0 | **20.0** | 35.0 | 20.0 | 37.5 | 30.8 |
+| TacoMAS | 20.0 | 55.0 | **20.0** | 5.0 | 20.0 | 57.5 | 34.6 |
+| **Inherit-MAS** | **60.0** | **75.0** | **20.0** | **45.0** | **35.0** | **67.5** | **55.4** |
+
+### Qwen3-32B Workers
+
+| System | Analytics | Calendar | CRM | Email | Project mgmt. | Multi-domain | Overall |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Single ReAct (reference) | 65.0 | 55.0 | 20.0 | 35.0 | 25.0 | 55.0 | 46.2 |
+| EvoAgent | 25.0 | 30.0 | 20.0 | 20.0 | 20.0 | 40.0 | 28.5 |
+| EvoMAS | 20.0 | 35.0 | 20.0 | 30.0 | 15.0 | **52.5** | 33.1 |
+| TacoMAS | 35.0 | **60.0** | **40.0** | 0.0 | **25.0** | 42.5 | 34.6 |
+| **Inherit-MAS** | **75.0** | 50.0 | 20.0 | **40.0** | 20.0 | **52.5** | **46.2** |
+
 ## Install
 
 Requires Python 3.10. HotpotQA also requires Java 21.
