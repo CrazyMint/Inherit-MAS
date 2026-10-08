@@ -1,5 +1,8 @@
 # Inherit-MAS
 
+[![arXiv](https://img.shields.io/badge/arXiv-2610.02396-b31b1b.svg?logo=arxiv)](https://arxiv.org/abs/2610.02396)
+[![Hugging Face Paper](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face%20Paper-FFD21E)](https://huggingface.co/papers/2610.02396)
+
 Run Inherit-MAS and its baselines on WorkBench and HotpotQA FullWiki.
 
 ## Install
